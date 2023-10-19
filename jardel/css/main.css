@@ -1,0 +1,12 @@
+@import '/css/Base/reset.css';
+@import '/css/Base/typography.css';
+@import '/css/Layout/header.css';
+@import '/css/Layout/navigation.css';
+@import '/css/Layout/sidebar.css';
+@import '/css/Pages/home.css';
+@import '/css/Pages/conteudo.css';
+@import '/css/Pages/cronograma.css';
+@import '/css/Utils/variables.css';
+@import '/css/Layout/footer.css';
+@import '/css/Pages/sobremim.css';
+@import '/css/Pages/exercícios.css';

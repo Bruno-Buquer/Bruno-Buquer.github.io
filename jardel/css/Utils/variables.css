@@ -1,0 +1,10 @@
+.grid-coluns {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+}
+
+.grid-coluns_2 {
+    display: grid;
+    grid-template-columns: auto auto;
+    text-align: center;
+}

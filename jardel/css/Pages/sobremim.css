@@ -1,0 +1,31 @@
+.main-info {
+    width: 80%;
+    margin: 0 auto;
+    color: black;
+    background-color:  rgb(255,192,68, 1.0);
+    border: 3px solid black;
+    text-align: center;
+    padding: 80px;
+}
+
+.main-info h1{
+    font-size: 45px;
+    padding-bottom: 40px;
+}
+
+.main-info p {
+    font-size: 20px;
+    padding-bottom: 40px;
+}
+
+.main-info a {
+    text-decoration: none;
+    background-color: purple;
+    padding: 10px;
+    color: white;
+}
+
+.main-info a:hover {
+    padding: 20px;
+    color: white;
+}

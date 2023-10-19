@@ -1,0 +1,19 @@
+.main-planilha {
+    width: 90%;
+    margin: 0 auto;
+    padding: 50px;
+}
+
+.main-planilha h1 {
+    padding: 15px;
+    color: black;
+    background-color:  rgb(255,192,68, 1.0);
+    border: 3px solid black;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.main-planilha iframe {
+    width: 100%;
+    height: 1000px;
+}
