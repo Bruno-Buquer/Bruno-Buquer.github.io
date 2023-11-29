@@ -2,11 +2,11 @@
 @import 'Base/typography.css';
 @import 'Layout/header.css';
 @import 'Layout/navigation.css';
+@import 'Layout/footer.css';
 @import 'Layout/sidebar.css';
+@import 'Utils/variables.css';
 @import 'Pages/home.css';
 @import 'Pages/conteudo.css';
 @import 'Pages/cronograma.css';
-@import 'Utils/variables.css';
-@import 'Layout/footer.css';
 @import 'Pages/sobremim.css';
 @import 'Pages/exercícios.css';

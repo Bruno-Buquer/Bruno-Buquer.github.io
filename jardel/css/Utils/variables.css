@@ -8,3 +8,9 @@
     grid-template-columns: auto auto;
     text-align: center;
 }
+
+.grid-coluns_1 {
+    display: grid;
+    grid-template-columns: auto;
+    text-align: center;
+}
