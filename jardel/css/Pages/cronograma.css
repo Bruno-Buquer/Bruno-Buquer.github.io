@@ -1,19 +1,33 @@
-.main-planilha {
+.planilha__main {
     width: 90%;
     margin: 0 auto;
-    padding: 50px;
 }
 
-.main-planilha h1 {
-    padding: 15px;
+.planilha__text {
     color: black;
+    margin-top: 25px;
+    padding: 10px 0 10px 0;
     background-color:  rgb(255,192,68, 1.0);
     border: 3px solid black;
     margin-bottom: 25px;
     text-align: center;
 }
 
-.main-planilha iframe {
-    width: 100%;
-    height: 1000px;
+@media (min-width: 932px) {
+    .planilha__arquivo {
+        width: 100%;
+        height: 800px;
+    }   
 }
+@media (min-width: 500px) and (max-width: 931px) {
+    .planilha__arquivo {
+        width: 100%;
+        height: 500px;
+    }   
+}
+@media (max-width: 499px){
+    .planilha__arquivo {
+        width: 100%;
+        height: 300px;
+    }   
+} 

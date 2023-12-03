@@ -7,50 +7,61 @@
   <title>Site Matemática - Jardel</title>
 </head>
 <body>
-    <header class="cabeçalho">
-        <nav class="cabeçalho_navegação">
-          <ul class="grid-coluns cabeçalho_navegação_link">
-            <li><a href="index.html"><img src="imagens/logo.png" alt="Logo do site"></a></li>
-            <li><a href="conteudo.html" class="item">Conteúdo</a></li>
-            <li><a href="exercicios.html" class="item">Exercícios</a></li>
-            <li><a href="cronograma.html" class="item">Cronograma</a></li>
-            <li><a href="sobremim.html" class="item">Sobre mim</a></li>
-          </ul>
-        </nav>
+    <header class="header">
+      <nav class="header__navegation">
+        <ul class="header__list">
+          <li class="header__list__item"><a href="index.html" class=".header__list__link"><img src="imagens/logo.png" alt="Logo do site" class="link__image"></a></li>
+          <li class="header__list__item"><a href="conteudo.html" class="header__list__link">Conteúdo</a></li>
+          <li class="header__list__item"><a href="exercicios.html" class="header__list__link">Exercícios</a></li>
+          <li class="header__list__item"><a href="cronograma.html" class="header__list__link">Cronograma</a></li>
+          <li class="header__list__item"><a href="sobremim.html" class="header__list__link">Sobre mim</a></li>
+        </ul>
+      </nav>
     </header>
 
-    <main class="main-ex">
+    <main class="exercicio__main">
+      
+      <div class="exercicio__box">
 
-      <div class="main-ex-item">
-        <h2>Material utilizados durante as aulas</h2>
-        <ul class="grid-coluns_2">
-          <li><a href="atividades/ConexoescomaMatematicaVolume1.pdf">Livro didático</a></li>
-          <li><a href="atividades/folhaderecup2023.pdf">Folha de recuperação</a></li>
-        </ul>
-      </div>
+        <h2 class="exercicio__list__h2">Material utilizados durante as aulas</h2>
 
-      <div class="main-ex-item">
-        <h2>Atividades referentes a matéria de lógica</h2>
-
-        <ul>
-        <li><a href="atividades/Apostiladelogica1ensinomedio.pdf">Apostila de lógica 1</a></li>
-        <li><a href="atividades/Apostiladelogica2ensinomedio.pdf">Apostila de lógica 2</a></li>
-        <li><a href="atividades/Apostiladelogica3ensinomedio.pdf">Apostila de lógica 3</a></li>
-        <li><a href="atividades/Apostiladelogica4ensinomedio.pdf">Apostila de lógica 4</a></li>
-        <li><a href="atividades/Apostiladelogica5ensinomedio.pdf">Apostila de lógica 5</a></li>
-        </ul>
-
-        <ul>
-          <li><a href="atividades/1enunciados(gabarito).pdf">Apostila de lógica 1(gabarito)</a></li>
-          <li><a href="atividades/2conectivossimbolizacao(gabarito).pdf">Apostila de lógica 2(gabarito)</a></li>
-          <li><a href="atividades/3.pdf">Apostila de lógica 3(gabarito)</a></li>
-          <li><a href="atividades/4equivalencia(gabarito).pdf">Apostila de lógica 4(gabarito)</a></li>
-          <li><a href="atividades/5negacao(gabarito).pdf">Apostila de lógica 5(gabarito)</a></li>
+        <div class="exercicio__list__conteudo">
+          <ul class="exercicio__list">
+            <li class="exercicio__list__item"><a href="atividades/ConexoescomaMatematicaVolume1.pdf" class="exercicio__list__link">Livro didático</a></li>
+            <li class="exercicio__list__item"><a href="atividades/folhaderecup2023.pdf"  class="exercicio__list__link">Folha de recuperação</a></li>
           </ul>
         </div>
+        
+
+      </div>
+
+      <div class="exercicio__box">
+        <h2 class="exercicio__list__h2">Atividades referentes a matéria de lógica</h2>
+
+        <div class="exercicio__list__conteudo">
+          <ul class="exercicio__list box_2">
+            <li class="exercicio__list__item"><a href="atividades/Apostiladelogica1ensinomedio.pdf" class="exercicio__list__link">Apostila de lógica 1</a></li>
+            <li class="exercicio__list__item"><a href="atividades/Apostiladelogica2ensinomedio.pdf" class="exercicio__list__link">Apostila de lógica 2</a></li>
+            <li class="exercicio__list__item"><a href="atividades/Apostiladelogica3ensinomedio.pdf" class="exercicio__list__link">Apostila de lógica 3</a></li>
+            <li class="exercicio__list__item"><a href="atividades/Apostiladelogica4ensinomedio.pdf" class="exercicio__list__link">Apostila de lógica 4</a></li>
+            <li class="exercicio__list__item"><a href="atividades/Apostiladelogica5ensinomedio.pdf" class="exercicio__list__link">Apostila de lógica 5</a></li>
+          </ul>
+
+          <ul class="exercicio__list">
+            <li class="exercicio__list__item"><a href="atividades/1enunciados(gabarito).pdf" class="exercicio__list__link">Apostila de lógica 1(gabarito)</a></li>
+            <li class="exercicio__list__item"><a href="atividades/2conectivossimbolizacao(gabarito).pdf" class="exercicio__list__link">Apostila de lógica 2(gabarito)</a></li>
+            <li class="exercicio__list__item"><a href="atividades/3.pdf" class="exercicio__list__link">Apostila de lógica 3(gabarito)</a></li>
+            <li class="exercicio__list__item"><a href="atividades/4equivalencia(gabarito).pdf" class="exercicio__list__link">Apostila de lógica 4(gabarito)</a></li>
+            <li class="exercicio__list__item"><a href="atividades/5negacao(gabarito).pdf" class="exercicio__list__link">Apostila de lógica 5(gabarito)</a></li>
+          </ul>
+        </div>
+        
+
+      </div>
+
     </main>
 
-    <footer class="rodapé">
+    <footer class="footer">
       <p>Made by: Bruno Buquer, Joaquim Diniz, Christine Cordeiro</p>
     </footer>
   

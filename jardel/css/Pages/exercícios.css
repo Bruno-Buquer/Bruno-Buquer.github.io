@@ -1,36 +1,37 @@
-.main-ex {
+.exercicio__main {
     width: 90%;
     margin: 0 auto;
-    padding: 50px;
+    padding: 3%;
 }
-
-.main-ex div {
+.exercicio__box {
     margin-bottom: 100px;
     border: 5px solid black;
+    background-color: #ffc044;;
+    padding: 2% 4% 4% 4%;
 }
-
-.main-ex-item {
-    background-color: rgb(255,192,68, 1.0);;
-    padding: 20px 80px 80px 80px;
-}
-
-.main-ex-item > h2 {
+.exercicio__list__h2 {
     text-align: center;
     padding-bottom: 45px;
     font-size: 30px;
 }
 
-.main-ex-item  li {
-    margin: 15px;
+.exercicio__list__conteudo {
+    display: flex;
+    justify-content: space-around;
+}
+.exercicio__list__item {
+    margin: 10%;
+    border: 3px solid black;
+    background-color: #cc9225;
+    text-align: center;
 }
 
-.main-ex-item a {
+.exercicio__list__link {
     text-decoration: none;
     font-size: 20px;
     color: black;
 }
 
-.main-ex-item a:hover {
+.exercicio__list__link:hover {
     background-color: white;
-    padding: 10px;
 }

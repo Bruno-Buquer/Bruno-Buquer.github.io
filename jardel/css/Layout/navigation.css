@@ -1,5 +1,51 @@
-ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
+@media (min-width: 996px) {
+    .header__navegation {
+        color: white;
+        text-align: center;
+        width: 100%;
+    }
+    .header__list {
+        display: flex;
+        justify-content: center;
+        place-items: center;
+    }
+    .header__list__item {
+        padding: 20px;
+        margin-right: 10px;
+        text-align: center;
+    }
+    .header__list__link {
+        text-decoration: none;
+        padding: 14px;
+        color: black;
+        font-size: 20px;
+        background-color: white;
+    }
+}
+
+@media (max-width:  995px) {
+    .header__navegation {
+        color: white;
+        text-align: center;
+        width: 100%;
+    }
+    .header__list {
+        display: grid;
+        place-items: center;
+    }
+    .header__list__item {
+        padding: 25px;
+        text-align: center;
+    }
+    .header__list__link {
+        text-decoration: none;
+        padding: 14px;
+        color: black;
+        font-size: 20px;
+        background-color: white;
+    }
+}
+
+.header__list__link:hover {
+    background-color: rgb(255,192,68, 1.0);
 }
