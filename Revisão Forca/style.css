@@ -1,0 +1,28 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+}
+
+#palavra-oculta {
+    font-size: 24px;
+    margin: 20px 0;
+}
+
+#letra {
+    padding: 5px;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+#tentativas {
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+#letras-erradas {
+    color: red;
+}
