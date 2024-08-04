@@ -1,0 +1,74 @@
+body {
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+    color: blue;
+}
+
+h1 {
+    text-align: center;
+    padding: 10px;
+    font-size: 50px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#botao,
+#Reset{
+    margin: 35px;
+    margin-bottom: 80px;
+    padding: 10px;
+    font-size: 25px;
+    border-radius: 20px;
+    transition: background-color 0.5s ease, color 0.5s ease, transform 0.5s ease;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+#botao:hover,
+#Reset:hover{
+    color: white;
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+#Reset {
+    border: solid 2px red;
+    color: red; 
+}
+
+#Reset:hover {
+    background-color: red;
+}
+
+.COM,
+.P2 {
+    border: solid 2px blue;
+    color: blue;
+}
+
+.COM:hover,
+.P2:hover {
+    background-color: blue;
+}
+
+#tabuleiro {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    gap: 5px;
+}
+
+.quadrado {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 100px;
+    background-color: #fff;
+    border: 2px solid #000;
+    font-size: 36px;
+    cursor: pointer;
+}
