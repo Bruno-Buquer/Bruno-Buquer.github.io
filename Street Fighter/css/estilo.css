@@ -1,0 +1,26 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    background-color: #2d2d2d;
+}
+
+#game-area {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+}
+
+#ryu {
+    position: absolute;
+    width: 200px;
+    bottom: 100px;
+    left: 100px;
+}
+
+#raduqui {
+    position: absolute;
+    width: 100px;
+    bottom: 160px;
+    left: 300px;
+    display: none;
+}
