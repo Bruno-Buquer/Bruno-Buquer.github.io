@@ -1,5 +1,3 @@
-
-
 // Criando um novo objeto XMLHttpRequest
 
 const xhttp = new XMLHttpRequest();
@@ -46,28 +44,41 @@ const gera_filme_card = (img, nome, generos, elenco, faixa_et, descricao, titulo
                         <h4 class="nome">${nome}</h4>
                         <p class="faixa-etaria ${indicativa}">Faixa etária: ${fe}</p>
                         <div class="generos">
-                            Gêneros:
                             <ul>
                                 ${generos_ul}
                             </ul>
                         </div>
-                        <div class="elenco">
-                            Elenco:
-                            <ul>
-                                ${elenco_ul}
-                            </ul>
-                        </div>
-                        <p class="descricao">Descrição:<br/><br/>${descricao}</p><br/>
+
+                        <div class="resenha">
+                            <div class="elenco">
+                                Elenco:
+                                <ul>
+                                    ${elenco_ul}
+                                </ul>
+                            </div>
+                            <div>
+                                <p>Descrição:</p><br/>
+                                <p class="descricao">${descricao}</p><br/>
+                            </div>
+                        <div>
                         <ul class="titulos_semelhantes">Títulos semelhantes:${pega_titulos_semelhantes(filmes, titulos_sem)}</ul>
                     </div>
                 </div>`;
     let opinioes_div = ``;
+    let nota_div = ``;
     opinioes.forEach(opiniao => {
-        let nota_div = `<div class='nota'>${opiniao.rating}</div>`;
+        nota_div = ``;
+        console.log(opiniao.rating)
+        for(let i=0; i < opiniao.rating; i++){
+            nota_div += `<img src="./assets/imgs/estrela.png"></img>`;
+        }
         let comentario_div = `<div class='comentario'>${opiniao.descricao}</div>`;
         let opiniao_div = `
                 <div class="opiniao">
-                    Nota: ${nota_div}<br/>
+                    Nota: 
+                    <div class="nota">
+                        ${nota_div}
+                    </div><br>
                     Comentário: ${comentario_div}<br>
                 </div>`;
         opinioes_div += opiniao_div;
