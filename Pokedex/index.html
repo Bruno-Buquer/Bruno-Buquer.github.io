@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/estilo.css">
+    <script src="js/data.js" defer></script>
+    <script src="js/poke.js" defer> </script>
+    <style>
+        .popup {
+            visibility: hidden;
+            position: absolute;
+            top: -300px;
+            background-color: #eee;
+            width: 600px;
+            margin: auto;
+        }
+        .popup-aparecer {
+            visibility: visible;
+            transform: translateY(400px);
+            transition: all 1s;
+        }
+        #xis {
+            position: absolute;
+            right: 10px;
+
+        }
+    </style>
+</head>
+<body>
+    <input type="text" placeholder="Procurar Pokemon" id="poke-search" list="poke-list-name">
+    <datalist id="poke-list-name">
+        <option class="poke-ID" value="Edge">
+    </datalist>
+
+
+    <div class="painel">
+        <div class="poke-card">
+            <!--
+            <div class="poke-fig">
+                <img src="" alt="" class="poke-img">
+            </div>
+            <h2 class="poke-name"></h2>
+            <p class="poke-description"></p>
+            <h3>Tipos</h3>
+            <ul class="poke-attributes">
+                <li></li>
+            </ul>
+            -->
+        </div>
+
+    </div>
+
+    <div class="popup">
+        
+    </div>
+    
+</body>
+</html>l
