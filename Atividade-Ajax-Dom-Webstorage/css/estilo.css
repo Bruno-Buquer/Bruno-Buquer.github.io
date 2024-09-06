@@ -63,9 +63,6 @@ nav li:hover a {
     min-height: 100vh;
 }
 
-.content h1 {
-    
-}
 
 #resultado{
     margin-top: 20px;
@@ -76,20 +73,26 @@ footer{
     clear:both;
 }
 
-#cardapio {
+#cardapio,
+#pedidos {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     list-style: none;
 }
-#cardapio img {
+
+#cardapio img,
+#pedidos img {
     width: 150px;
 }
 
-#cardapio figure {
+#cardapio figure,
+#pedidos figure {
     position:relative;
 }
-#cardapio figcaption {
+
+#cardapio figcaption,
+#pedidos figcaption {
     position:absolute;
     bottom: 5px;
     width: 100%;

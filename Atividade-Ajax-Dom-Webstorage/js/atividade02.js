@@ -21,8 +21,8 @@ var cardapio = [new Produto(1, "Capuccino", "Bebidas Quentes", "https://rafaeles
             , new Produto(9, "Bolo de Laranja", "Doces", "https://rafaelescalfoni.github.io/desenv_web/img/bolo_laranja.png",8)];
 		
 
-const carregarCardapio = lista => {
-    const listaObj = document.querySelector("#cardapio")
+const carregarCardapio = (lista,id) => {
+    const listaObj = document.querySelector(id)
     lista.forEach(produto => {
         listaObj.innerHTML += `<li id="${produto.id}"><figure>
                                     <img src="${produto.foto}" alt="${produto.nome}">
@@ -34,7 +34,12 @@ const carregarCardapio = lista => {
     }); 
 }
 
-carregarCardapio(cardapio)
+function apagarPedidos (id) {
+    const ulPedido = document.querySelector(id);
+    ulPedido.innerHTML = "";    
+}
+
+carregarCardapio(cardapio,"#cardapio")
 
 const item = document.querySelector("#cardapio")
 let cestaCompras = [];
@@ -43,11 +48,15 @@ item.addEventListener("click", function(ev){
     if(ev.target.nodeName == "IMG" ||
         ev.target.nodeName == "FIGCAPTION") {
             let produto = pesquisaPorId(cardapio, ev.target.parentNode.parentNode.id)
-            if(!(produto.produto in cestaCompras)){
-                cestaCompras.push({prod:produto,qtd:1})
-                console.log(cestaCompras)
+            let temProdutoNaCesta = cestaCompras.some (function (item) {
+                return item === produto
+            })
+            if(!(temProdutoNaCesta)){
+                cestaCompras.push(produto)
+                //localStorage.setItem(produto.id, produto.nome)
             }
-            
-
+            //console.log(localStorage.getItem(produto.id, produto.nome));
+            apagarPedidos("#pedidos");
+            carregarCardapio(cestaCompras,"#pedidos")
     }
 })
