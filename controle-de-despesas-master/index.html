@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="script/controle.js" defer></script>
     <title>Controle de despesas</title>
   </head>
   <body>
@@ -36,23 +37,35 @@
 
       <h3>Adicionar transação</h3>
       
-      <form id="form">
+    <!--  <form id="form"> -->
         <div class="form-control">
           <label for="text">Nome</label>
-          <input autofocus type="text" id="text" placeholder="Nome da transação" />
+          <input autofocus type="text" id="transaction-name" placeholder="Nome da transação" />
         </div>
 
         <div class="form-control">
           <label for="amount">Valor <br />
-            <small>(negativo - despesas, positivo - receitas)</small>
+            <!--<small>(negativo - despesas, positivo - receitas)</small> -->
           </label>
           <input type="number" id="amount" placeholder="Valor da transação" />
         </div>
 
+        <div class="form-control">
+          <label for="category">Categoria <br />
+            <small>Classe de Despesa / Receita</small>
+          </label>
+          <input list="category-list" type="text" id="category" placeholder="Escolha uma Categoria" />
+
+          <datalist id="category-list"></datalist>
+
+        </div>
+
         <button class="btn">Adicionar</button>
+    <!--
       </form>
+    -->  
     </div>
 
-    <script src="./script.js"></script>
+    
   </body>
 </html>
