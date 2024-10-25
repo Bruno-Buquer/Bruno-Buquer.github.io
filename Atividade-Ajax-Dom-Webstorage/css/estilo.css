@@ -79,6 +79,7 @@ footer{
     flex-direction: row;
     flex-wrap: wrap;
     list-style: none;
+    
 }
 
 #cardapio img,
@@ -99,4 +100,10 @@ footer{
     background-color: rgba(0,0,0,0.5);
     color: #fff;
     padding: 10px;
+}
+
+#pedidos p {
+    text-align: center;
+    background-color: rgba(0,0,0,0.5);
+    color: #fff;
 }

@@ -28,6 +28,20 @@ const carregarCardapio = (lista,id) => {
         listaObj.innerHTML += `<li id="${produto.id}"><figure>
                                     <img src="${produto.foto}" alt="${produto.nome}">
                                     <figcaption>
+                                        ${produto.nome} - R$ <strong>${produto.valorUnitario},00</strong>
+                                    </figcaption>
+                                    </figure>
+                                </li>`
+    }); 
+}
+
+const carregarPedido = (lista,id) => {
+    const listaObj = document.querySelector(id)
+    lista.forEach(produto => {
+        listaObj.innerHTML += `<li id="${produto.id}"><figure>
+                                    <p>Quantidade:${produto.quantidade}</p>
+                                    <img src="${produto.foto}" alt="${produto.nome}">
+                                    <figcaption>
                                         ${produto.nome} - R$ <strong>${produto.valorUnitario * produto.quantidade},00</strong>
                                     </figcaption>
                                     </figure>
@@ -46,15 +60,31 @@ function calculaTotal (lista) {
     lista.forEach(function(produto) {
         total = total + (produto.quantidade * produto.valorUnitario);
     })
-    console.log(total)
 
     Totaltela.innerHTML = `Total - R$${total},00`
 }
 
 carregarCardapio(cardapio,"#cardapio")
 
-const item = document.querySelector("#cardapio")
 let cestaCompras = [];
+
+const updateLocalStorage = () => {
+    cardapio.forEach(function(produto) {
+        let pedido = JSON.parse(localStorage.getItem(produto.id))
+        if(pedido) {
+            produto.quantidade = pedido.quantidade;
+            cestaCompras.push(produto)
+        }
+    })
+}
+console.log(cestaCompras);
+updateLocalStorage();
+
+carregarPedido(cestaCompras,"#pedidos")
+calculaTotal(cestaCompras)
+
+const item = document.querySelector("#cardapio")
+
 item.addEventListener("click", function(ev){
     // ev PointerEvent => ponteiro para o evento
     if(ev.target.nodeName == "IMG" ||
@@ -63,16 +93,27 @@ item.addEventListener("click", function(ev){
             let temProdutoNaCesta = cestaCompras.some (function (item) {
                 return item === produto
             })
+            
             if(!(temProdutoNaCesta)){
                 cestaCompras.push(produto)
-                //localStorage.setItem(produto.id, produto.nome)
             }
             else {
                 produto.quantidade++;
+                // let pedido = JSON.parse(localStorage.getItem(produto.id))
+                // console.log(pedido)
             }
-            //console.log(localStorage.getItem(produto.id, produto.nome));
+            let pedidoInfo = {nome: produto.nome, quantidade: produto.quantidade}
+            localStorage.setItem(produto.id, JSON.stringify(pedidoInfo))
             apagarPedidos("#pedidos");
-            carregarCardapio(cestaCompras,"#pedidos")
-            calculaTotal(cestaCompras, )
+            carregarPedido(cestaCompras,"#pedidos")
+            calculaTotal(cestaCompras)
     }
 })
+
+// const localStorageTransactions = JSON.parse(localStorage.getItem('transactions'))
+
+// let transactions = localStorage.getItem('transactions') !== null ? localStorageTransactions : []
+
+// const updateLocalStorage = () => {
+//     localStorage.setItem('transactions', JSON.stringify(transactions))
+// }
