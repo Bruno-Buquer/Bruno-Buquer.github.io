@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clima API - Consula</title>
+    <link rel = "stylesheet" href = "./css/style.css">
+    <script src = "./js/script.js" defer></script>
+</head>
+<body>
+    
+    <div class = "container">
+
+        <div class = "logo">
+            <h1>Climas<span>.xablau</span></h1>
+        </div>
+
+
+        <div class = "barraPesquisa">
+            <div class="search-element">
+                <input type="text" class="form-control" placeholder="Digite o nome da cidade" id="barraPesquisa">
+            </div>
+            <div class="search-button">
+                <button id="pesquisar">Pesquisar Clima</button>
+                <button id="filtrar">Pesquisar Condições Extremas</button>
+            </div>
+        </div>
+        
+
+        <div id="respAPI"></div>
+
+    </div>
+</body>
+</html>

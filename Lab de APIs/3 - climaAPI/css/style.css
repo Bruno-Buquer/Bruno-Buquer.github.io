@@ -1,0 +1,145 @@
+/* Resetando estilos padrão */
+* {
+    padding: 0;
+    margin: 0;
+}
+
+/* Configuração do fundo */
+body {
+    background: lightblue url("../img/6493501.jpg");
+    background-size: cover;
+}
+/* Estilização geral do container */
+.container {
+    width: 70%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* Estilização do logo */
+.logo {
+    text-align: center;
+    margin: 2%;
+    padding: 10px;
+    font-family: 'Arial', sans-serif;
+}
+
+.logo h1 {
+    font-size: 36px; /* Tamanho maior para destaque */
+    font-weight: bold;
+    color: #007bff; /* Cor principal da logo */
+}
+
+.logo h1 span {
+    color: #ff5733; /* Cor diferente para o destaque ".com" */
+    font-style: italic;
+}
+
+/* Estilização da barra de pesquisa */
+.barraPesquisa {
+    margin-top: 20px; /* Espaçamento entre o logo e a barra de pesquisa */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.search-element {
+    width: 100%;
+    max-width: 500px; /* Limita a largura máxima do input */
+    margin-bottom: 10px; /* Espaçamento entre o input e os botões */
+}
+
+/* Estilização do input */
+.form-control {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.form-control:focus {
+    border-color: #007bff; /* Cor da borda ao focar */
+}
+
+/* Estilização dos botões */
+.search-button {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.search-button button {
+    padding: 10px 15px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-button button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilização das informações apresentadas */
+
+@media screen and (min-width: 800px) {
+  
+}
+#respAPI {
+    margin: 0 auto;
+    width: 60%;
+}
+.resultadoPesquisa {
+    border: 5px solid rgba(0, 0, 0, 0.884);
+    border-radius: 100px;
+    margin: 5%;
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.596);
+}
+
+.nomeCidade h3 {
+    font-size: 2.5rem;
+    color: #ff5733;
+    font-weight: bold;
+    margin: 20px;
+}
+
+.condiçõesInfo p {
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 5px;
+}
+
+.temp {
+    color: rgb(255, 0, 119);
+}
+
+.umid {
+    color: #007bff;
+}
+
+.condiçõesInfo ul {
+    list-style: none;
+    margin: 10px 0;
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+.condiçõesInfo ul li {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 5px;
+    font-size: 1.2rem;
+}
+
+.condiçõesInfo ul li.climaTipo {
+    font-weight: bold;
+    color: #007bff;
+}

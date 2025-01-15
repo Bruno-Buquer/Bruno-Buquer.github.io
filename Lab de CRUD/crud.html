@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab CRUD</title>
+    <script src = "./crud.js" defer></script>
+    <link rel="stylesheet" type="text/css" href="./style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="title">Escalfoni Livros</div>
+        <div class="inputs-row">
+            <input type="text" placeholder="Título" id="titulo">
+            <input type="text" placeholder="Autor" id="autor">
+            <input type="text" placeholder="Ano" id="ano">
+        </div>
+        <div style="text-align: center;">
+            <button id="add">Adicionar Livro</button>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="inputs-row">
+            <input type="text" placeholder="Id" id="ID">
+            <input type="text" placeholder="Título" id="titulo2">
+            <input type="text" placeholder="Autor" id="autor2">
+            <input type="text" placeholder="Ano" id="ano2">
+        </div>
+        <div style="text-align: center;">
+            <button id="att">Atualizar Livro</button>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="remove-section">
+            <input type="number" placeholder="ID" id="id3">
+            <button id="del">Remover Livro</button>
+        </div>
+
+        <div class="divider"></div>
+
+        <div id="reps"></div>
+    </div>
+</body>
+</html>
