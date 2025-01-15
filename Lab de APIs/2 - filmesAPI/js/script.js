@@ -12,6 +12,13 @@ async function loadMovies(searchTerm){
     console.log(data)
 }
 
+// async function  loadMovieDetails (id) {
+//     const URL = `http://www.omdbapi.com/?i=${id}&apikey=fc1fef96`
+//     const result = await fetch(`${URL}`);
+//     let movieDetails = await result.json();
+//     return movieDetails;
+// }
+
 function pegarNomeFilme() {
     let nomeFilme = barraPesquisa.value;
     return nomeFilme;
@@ -31,6 +38,7 @@ async function MapearFilmes (movies) {
 
 function ExibirFilmes (filmes) {
     filmes.forEach(async dado => {
+        // let movieDetails = await loadMovieDetails(dado.id) <li class ='writer'>Diretor: ${movieDetails.Director}</li>
 
         GridResult.innerHTML += `
             <div class="cardMovie">
