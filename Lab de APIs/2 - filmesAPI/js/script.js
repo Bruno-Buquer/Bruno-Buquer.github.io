@@ -12,12 +12,12 @@ async function loadMovies(searchTerm){
     console.log(data)
 }
 
-async function  loadMovieDetails (id) {
-    const URL = `http://www.omdbapi.com/?i=${id}&apikey=fc1fef96`
-    const result = await fetch(`${URL}`);
-    let movieDetails = await result.json();
-    return movieDetails;
-}
+// async function  loadMovieDetails (id) {
+//     const URL = `http://www.omdbapi.com/?i=${id}&apikey=fc1fef96`
+//     const result = await fetch(`${URL}`);
+//     let movieDetails = await result.json();
+//     return movieDetails;
+// }
 
 function pegarNomeFilme() {
     let nomeFilme = barraPesquisa.value;
@@ -38,7 +38,7 @@ async function MapearFilmes (movies) {
 
 function ExibirFilmes (filmes) {
     filmes.forEach(async dado => {
-        let movieDetails = await loadMovieDetails(dado.id)
+        // let movieDetails = await loadMovieDetails(dado.id) <li class ='writer'>Diretor: ${movieDetails.Director}</li>
 
         GridResult.innerHTML += `
             <div class="cardMovie">
@@ -50,7 +50,7 @@ function ExibirFilmes (filmes) {
                     <br>
                     <ul class = "movie-misc-info">
                         <li class = "year">Year: ${dado.ano}</li>
-                        <li class ='writer'>Diretor: ${movieDetails.Director}</li>
+                        
                     </ul>
                 </div>
             </div>
