@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dashboard Vacinas - Pesquisa</title>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+  <link rel="stylesheet" href="./estilo/style.css" />
+
+  <script src="./script/script.js" defer></script>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>Análise e Pesquisa da Segurança Populaciona em Relação à Vacinação Contra a Covid-19</h1>
+      </div>
+    </header>
+
+    <aside class="panel controls">
+      <div class="control-group">
+        <h3>Filtrar por cidade</h3>
+        <div class="top-inline">
+          <select id="citySelect">
+            <option value="NF">Nova Friburgo</option>
+            <option value="PR">Petropolis</option>
+            <option value="TR">Teresopolis</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <h3>Exibir dados - Condição</h3>
+        <div class="checkbox-grid">
+          <label for="CheckCurados" class="fancy-check" data-checked="true">
+            <input id="CheckCurados" type="checkbox" value="1" /><div class="box">C</div><span>Curados</span></label>
+
+          <label for="CheckMortos" class="fancy-check" data-checked="true">
+            <input id="CheckMortos" type="checkbox" value="1" /><div class="box">M</div><span>Mortos</span></label>
+
+          <label for="CheckMortosOutro" class="fancy-check" data-checked="true">
+            <input id="CheckMortosOutro" type="checkbox" value="1" /><div class="box">O</div><span>Mortos por outras causas</span></label>
+            
+          <label for="CheckTaola" class="fancy-check" data-checked="true">
+            <input id="CheckTaola" type="checkbox" value="1" /><div class="box">L</div><span>Tão lá</span></label>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <h3>Exibir dados - Médico</h3>
+        <div class="checkbox-grid">
+          <label for="CheckVacina" class="fancy-check" data-checked="true">
+            <input id="CheckVacina" type="checkbox" value="1" /><div class="box">V</div><span>Vacina</span></label>
+
+          <label for="CheckHospitais" class="fancy-check" data-checked="true">
+            <input id="CheckHospitais" type="checkbox" value="1" /><div class="box">H</div><span>Hospitais</span></label>
+        </div>
+      </div>
+
+      <div class="control-group" id="doseChecks">
+        <!--
+        <h3>Vacinas — escolha a(s) dose(s)</h3>
+        <div class="checkbox-grid">
+          <label class="fancy-check" data-checked="true"><input id="CheckDose1" type="checkbox" data-dose="1" /><div class="box">1</div><span>1ª dose</span></label>
+          <label class="fancy-check" data-checked="true"><input id="CheckDose2" type="checkbox" data-dose="2" /><div class="box">2</div><span>2ª dose</span></label>
+          <label class="fancy-check" data-checked="true"><input id="CheckDose3" type="checkbox" data-dose="3" /><div class="box">3</div><span>3ª dose</span></label>
+          <label class="fancy-check" data-checked="true"><input id="CheckDose4" type="checkbox" data-dose="4" /><div class="box">4</div><span>4ª dose</span></label>
+        </div>
+        -->
+      </div>
+
+      <div class="control-group">
+        <h3>Sexo</h3>
+        <div class="checkbox-grid" id="sexChecks">
+          <label class="fancy-check" data-checked="true"><input id="CheckMasc" type="checkbox" data-sex="M" /><div class="box">M</div><span>Masculino</span></label>
+          <label class="fancy-check" data-checked="true"><input id="CheckFemi" type="checkbox" data-sex="F" /><div class="box">F</div><span>Feminino</span></label>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <h3>Pegou SRAG por: </h3>
+        <div style="display:flex;gap:8px;">
+          <label class="fancy-check" data-checked="true" style="flex:1"><input id="CheckCovidSRAG" type="checkbox" data-covid="with" /><div class="box">C</div><span>COVID</span></label>
+          <label class="fancy-check" data-checked="true" style="flex:1"><input id="CheckOutrosSRAG" type="checkbox" data-covid="without" /><div class="box">O</div><span>Outros</span></label>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:8px;margin-top:8px;">
+        <button id="applyBtn" class="btn">Aplicar filtros</input>
+        <button id="resetBtn" class="btn ghost">Reset</button>
+      </div>
+    </aside>
+
+    <main class="panel charts">
+      <div class="charts-head">
+        <div>
+          <strong id="summaryTitle">Resumo dos dados</strong>
+        </div>
+      </div>
+
+      <div class="charts-grid">
+        <!-- GERAL -->
+        <div class="chart-card"><canvas id="pieCondGeral"></canvas><div class="legend">Geral — Condição</div></div>
+        <div class="chart-card"><canvas id="pieVacinaGeral"></canvas><div class="legend">Geral — Vacina</div></div>
+
+        <!-- FEMININO -->
+        <div class="chart-card" id="femCharts" style="display:none;">
+            <canvas id="pieCondFemi"></canvas><div class="legend">Feminino — Condição</div>
+        </div>
+        <div class="chart-card" id="femVac" style="display:none;">
+            <canvas id="pieVacinaFemi"></canvas><div class="legend">Feminino — Vacina</div>
+        </div>
+
+        <!-- MASCULINO -->
+        <div class="chart-card" id="mascCharts" style="display:none;">
+            <canvas id="pieCondMasc"></canvas><div class="legend">Masculino — Condição</div>
+        </div>
+        <div class="chart-card" id="mascVac" style="display:none;">
+            <canvas id="pieVacinaMasc"></canvas><div class="legend">Masculino — Vacina</div>
+        </div>
+      </div>
+
+      
+
+      <footer>
+        <div>Projeto feito por: Bruno Buquer, Caio Amorim, Christine Cordeiro, João Pedro Toledo</div>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>
