@@ -16,7 +16,7 @@
   <div class="wrap">
     <header>
       <div>
-        <h1>Análise e Pesquisa da Segurança Populaciona em Relação à Vacinação Contra a Covid-19</h1>
+        <h1>Análise e Pesquisa da Segurança Populacional em Relação à Vacinação Contra a Covid-19</h1>
       </div>
     </header>
 
@@ -105,6 +105,7 @@
         <!-- GERAL -->
         <div class="chart-card"><canvas id="pieCondGeral"></canvas><div class="legend">Geral — Condição</div></div>
         <div class="chart-card"><canvas id="pieVacinaGeral"></canvas><div class="legend">Geral — Vacina</div></div>
+        <div class="chart-card" id="hospitaisChart"><canvas id="pieHospitais"></canvas><div class="legend">Geral — Hospitais</div></div>
 
         <!-- FEMININO -->
         <div class="chart-card" id="femCharts" style="display:none;">
@@ -123,7 +124,26 @@
         </div>
       </div>
 
-      
+      <!-- Média, moda e mediana -->
+      <div class="chart-card">
+        <h3>Estatísticas de Idade</h3>
+        <div id="estatisticasIdade">
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-value" id="mediaIdade">0</div>
+              <div class="stat-label">Média</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value" id="modaIdade">0</div>
+              <div class="stat-label">Moda</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value" id="medianaIdade">0</div>
+              <div class="stat-label">Mediana</div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <footer>
         <div>Projeto feito por: Bruno Buquer, Caio Amorim, Christine Cordeiro, João Pedro Toledo</div>

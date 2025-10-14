@@ -354,3 +354,165 @@ select option:checked {
   background: var(--accent);
   color: #fff;
 }
+/* ============================================================
+   📈 ESTATÍSTICAS DE IDADE (CENTRALIZADO E ALINHADO)
+   ============================================================ */
+
+/* Container principal das estatísticas - centralizado */
+.chart-card:has(#estatisticasIdade) {
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(124, 58, 237, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 0 auto;
+  max-width: 500px;
+  width: 100%;
+}
+
+.chart-card:has(#estatisticasIdade) h3 {
+  color: #e6eef8;
+  font-size: 16px;
+  margin-bottom: 8px;
+  font-weight: 600;
+  text-align: center;
+  width: 100%;
+}
+
+#estatisticasIdade {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#estatisticasIdade .stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  width: 100%;
+  max-width: 400px;
+  margin: 12px auto;
+  justify-items: center;
+}
+
+#estatisticasIdade .stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  border: 1px solid rgba(124, 58, 237, 0.15);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  min-height: 100px;
+  width: 100%;
+  max-width: 120px;
+  text-align: center;
+}
+
+#estatisticasIdade .stat-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), #4f46e5);
+  opacity: 0.8;
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
+}
+
+#estatisticasIdade .stat-item:hover::before {
+  transform: scaleX(1);
+}
+
+#estatisticasIdade .stat-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+  border-color: rgba(124, 58, 237, 0.3);
+}
+
+#estatisticasIdade .stat-value {
+  font-size: 28px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #e6eef8 0%, #a5b4fc 50%, #818cf8 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 6px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  line-height: 1;
+  display: block;
+  width: 100%;
+}
+
+#estatisticasIdade .stat-label {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  text-align: center;
+  display: block;
+  width: 100%;
+}
+
+/* Ajuste para alinhar com os gráficos na grid */
+.charts-grid + .chart-card:has(#estatisticasIdade) {
+  grid-column: 1 / -1;
+  justify-self: center;
+}
+
+/* Responsividade para estatísticas */
+@media (max-width: 900px) {
+  #estatisticasIdade .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    max-width: 300px;
+  }
+  
+  #estatisticasIdade .stat-item {
+    padding: 18px 12px;
+    min-height: 90px;
+    max-width: 200px;
+  }
+  
+  #estatisticasIdade .stat-value {
+    font-size: 26px;
+  }
+  
+  #estatisticasIdade .stat-label {
+    font-size: 11px;
+  }
+  
+  .chart-card:has(#estatisticasIdade) {
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 420px) {
+  #estatisticasIdade .stat-value {
+    font-size: 24px;
+  }
+  
+  #estatisticasIdade .stat-label {
+    font-size: 10px;
+    letter-spacing: 0.5px;
+  }
+  
+  #estatisticasIdade .stats-grid {
+    max-width: 250px;
+  }
+  
+  .chart-card:has(#estatisticasIdade) {
+    max-width: 320px;
+  }
+}
