@@ -24,6 +24,11 @@ h1 {
   gap: 10px;
   justify-content: center;
   margin-top: 30px;
+  padding: 0;
+}
+
+.grid li {
+  list-style: none;
 }
 
 .caixaLetra {
