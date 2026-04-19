@@ -1,0 +1,95 @@
+@import url("./fontes/fontes.css");
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #F2E3D5;
+  color: #012E40;
+}
+
+/* Paleta de cores
+
+Azul escuro: #012E40
+Azul petróleo: #024959
+Verde azulado: #026773
+Verde claro: #3CA6A6
+Bege claro: #F2E3D5 
+
+*/
+
+/* Barra de navegação */
+#top-bar {
+    background: #012E40;
+    width: auto;
+    padding: 20px;
+}
+
+#top-bar nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+#top-bar nav ul li a {
+    text-decoration: none;
+    color: #F2E3D5;
+    padding: 10px 15px;
+    border-radius: 50px;
+}
+
+#top-bar nav ul li a:hover {
+    background-color: #3CA6A6;
+    color: #012E40;
+}
+
+/* Sobre mim */
+
+#sobre-mim {
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+    gap: 2%;
+}
+
+#info {
+    display: flex;
+    /*border: 3px solid red;*/
+    flex-direction: column;
+    width: 70%;
+    padding-top: 10px;
+}
+
+#info h1 {
+    font-size: 3.8rem;
+    text-align: center;
+}
+
+#info p {
+    font-size: 1.4rem;
+}
+
+#botões button {
+    all: unset; /* remove estilo padrão */
+    font-size: 1.2rem;
+    border: 2px solid #026773;
+    color: #026773;
+    padding: 20px;
+    margin: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+#botões button:hover {
+    background-color: #026773;
+    color: #F2E3D5;
+    transform: scale(1.05);
+}
+
+
+#sobre-mim img {
+    border: 15px solid #012E40;
+    border-radius: 10%;
+    width: 28%;
+}

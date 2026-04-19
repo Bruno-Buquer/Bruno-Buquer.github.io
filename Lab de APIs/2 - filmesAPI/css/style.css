@@ -116,6 +116,13 @@ img{
 .result-container{
     padding: 3rem 0;
 }
+
+.cardMovie {
+    border: 5px solid red;
+    margin:15px;
+    padding: 15px;
+}
+
 .movie-poster img{
     max-width: 300px;
     margin: 0 auto;
@@ -124,7 +131,7 @@ img{
 .movie-info{
     text-align: center;
     color: #fff;
-    padding-top: 3rem;
+    padding: 10px;
 }
 
 /* movie info stylings */

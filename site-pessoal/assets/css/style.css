@@ -1,0 +1,585 @@
+@import url("./fontes/fontes.css");
+
+/* ================= RESET ================= */
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #F2E3D5 60%, #3CA6A6 100%);
+    color: #012E40;
+    font-family: 'Adagio Slab', serif;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    all: unset; /*Tira todos os efeitos dos links */
+}
+
+/* Paleta de cores
+
+Azul escuro: #012E40
+Azul petróleo: #024959
+Verde azulado: #026773li a
+Verde claro: #3CA6A6
+Bege claro: #F2E3D5 
+
+/* ================= ANIMAÇÃO ================= */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(60px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pular{
+    100%{
+        top: -1px;
+    }
+}
+
+/* ================= NAVBAR ================= */
+
+#top-bar {
+    background: rgba(1, 46, 64, 0.8);
+    backdrop-filter: blur(7px);
+    width: 100%;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+}
+
+.nav-hidden {
+    transform: translateY(-100%);
+}
+
+#top-bar nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 0;
+}
+
+#top-bar nav ul li a {
+    color: #F2E3D5;
+    padding: 10px 15px;
+    border-radius: 50px;
+    transition: 0.3s;
+}
+
+#top-bar nav ul li a:hover {
+    background-color: #3CA6A6;
+    color: #012E40;
+}
+
+/* ================= MAIN ================= */
+
+main {
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ================= SOBRE MIM ================= */
+
+#sobre-mim {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px;
+    gap: 80px;
+    animation: fadeIn 1.5s ease;
+}
+
+#info {
+    max-width: 1200px;
+    background: #FAF6F0;
+    padding: 35px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+
+#info h1 {
+    text-align: center;
+    font-size: 3.2rem;
+    margin-bottom: 40px;
+}
+
+#info p {
+    font-size: 1.4rem;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+#botões {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+#botões button {
+    all: unset;
+    font-size: 1.1rem;
+    border: 2px solid #026773;
+    color: #026773;
+    padding: 12px 24px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+#botões button:hover {
+    background-color: #026773;
+    color: #F2E3D5;
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+#sobre-mim img {
+    border: 15px solid #012E40;
+    max-width: 400px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* ================= HABILIDADES & TECH ================= */
+
+
+
+/* ================= FORMAÇÃO ================= */
+
+h2.titulo{
+    font-size: 2.5rem;
+    color:#026773;
+    text-align: center;
+    
+}
+
+h2.titulo span.span-form-fale{
+    color: #012E40
+}
+
+h2.titulo span.end-letter {
+    padding-right: 20px;
+}
+
+.span-form{
+    position: relative;
+    top: 20px;
+    animation: pular 2s ease infinite alternate;
+}
+
+.span-form:nth-child(2){
+    animation-delay: 0.1s;
+}
+
+.span-form:nth-child(3){
+    animation-delay: 0.2s;
+}
+
+.span-form:nth-child(4){
+    animation-delay: 0.3s;
+}
+
+.span-form:nth-child(5){
+    animation-delay: 0.4s;
+}
+
+.span-form:nth-child(6){
+    animation-delay: 0.5s;
+}
+
+.span-form:nth-child(7){
+    animation-delay: 0.6s;
+}
+
+.span-form:nth-child(8){
+    animation-delay: 0.7s;
+}
+
+.span-form:nth-child(9){
+    animation-delay: 0.8s;
+}
+
+.span-form:nth-child(10){
+    animation-delay: 0.9s;
+}
+
+.span-form:nth-child(11){
+    animation-delay: 1s;
+}
+
+.span-form:nth-child(12){
+    animation-delay: 1.1s;
+}
+
+.span-form:nth-child(13){
+    animation-delay: 1.2s;
+}
+
+.span-form:nth-child(14){
+    animation-delay: 1.3s;
+}
+
+.span-form:nth-child(15){
+    animation-delay: 1.4s;
+}
+
+.span-form:nth-child(16){
+    animation-delay: 1.5s;
+}
+
+.span-form:nth-child(17){
+    animation-delay: 1.6s;
+}
+
+.span-form:nth-child(18){
+    animation-delay: 1.7s;
+}
+
+.span-form:nth-child(19){
+    animation-delay: 1.8s;
+}
+
+.span-form:nth-child(20){
+    animation-delay: 1.9s;
+}
+
+.span-form:nth-child(21){
+    animation-delay: 2s;
+}
+
+.span-form:nth-child(22){
+    animation-delay: 2.1s;
+}
+
+.span-form:nth-child(23){
+    animation-delay: 2.2s;
+}
+
+.formacao {
+    padding: 30px;
+    max-width: 1500px;
+    margin: 0 auto;
+    animation: fadeIn 1.8s ease;
+}
+
+.container-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.card-formacao {
+    background: #FAF6F0;
+    padding: 30px;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    border-left: 8px solid #026773; /* Destaque em Verde Azulado */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    transition: 0.3s;
+}
+
+.card-formacao:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+.card-formacao .periodo {
+    color: #3CA6A6; /* Verde claro */
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.card-formacao h3 {
+    margin: 0;
+    color: #012E40; /* Azul escuro */
+    font-size: 1.6rem;
+}
+
+.card-formacao h4 {
+    margin: 5px 0 15px 0;
+    color: #026773; /* Verde azulado */
+    font-weight: 500;
+}
+
+.card-formacao p {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: #024959; /* Azul petróleo */
+    opacity: 0.8;
+}
+
+#competencias {
+    max-width: 1200px;
+}
+
+.habilidades-container {
+    text-align: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Duas colunas */
+    gap: 50px;
+    margin-top: 40px;
+}
+
+/* Títulos internos */
+.habilidades-container h3 {
+    color: #012E40;
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    border-bottom: 3px solid #3CA6A6;
+    display: inline-block;
+}
+
+.habilidades-container img {
+    max-width: 400px; /* Limita o tamanho para não ocupar o card todo */
+    display: block;
+    margin: 40px auto 0 auto; /* Centraliza e dá espaço no topo */
+    border-radius: 12px;
+    border: 4px solid #026773; /* Moldura na cor do tema */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.habilidades-container img:hover {
+    transform: scale(1.05) rotate(180deg);
+}
+
+/* Estilo das Badges (Linguagens) */
+.badges-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.badges-group span {
+    background-color: #026773;
+    color: #F2E3D5;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: 0.3s;
+    cursor: default;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.badges-group span:hover {
+    background-color: #3CA6A6;
+    transform: scale(1.05);
+}
+
+/* Estilo da Lista (Soft Skills) 
+.lista-skills {
+    list-style: none;
+    padding: 0;
+}
+
+.lista-skills li {
+    background: #FAF6F0;
+    margin-bottom: 15px;
+    padding: 15px 20px;
+    border-radius: 12px;
+    border-left: 5px solid #026773;
+    font-size: 1.1rem;
+    line-height: 1.4;
+    color: #024959;
+}
+
+.lista-skills li strong {
+    color: #012E40;
+    display: block;
+    margin-bottom: 3px;
+}
+*/
+
+/* ================= SEÇÃO CONTATO ================= */
+
+/* Ajuste para os cards de contato serem um pouco menores ou centralizados */
+#contato .container-cards {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.card-contato {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card-contato p {
+    font-weight: bold;
+    color: #012E40;
+    margin: 15px 0;
+}
+
+/* Estilo do botão de ação dentro do card */
+.btn-contato {
+    text-decoration: none;
+    background-color: #026773;
+    color: #F2E3D5;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    transition: 0.3s;
+    margin-top: 10px;
+    border: 2px solid transparent;
+}
+
+.btn-contato:hover {
+    background-color: #3CA6A6;
+    color: #012E40;
+    transform: scale(1.05);
+    border-color: #012E40;
+}
+
+/* ================= FOOTER ================= */
+
+#rodape {
+    background-color: #012E40;
+    color: #F2E3D5;
+    padding: 20px;
+    /*
+    padding: 50px 20px 20px;
+    margin-top: 80px;*/
+}
+
+.footer-bottom {
+    max-width: 1200px;
+    margin: 20px auto 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+.scroll-top {
+    color: #3CA6A6;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.scroll-top:hover {
+    text-decoration: underline;
+}
+
+/* ================= RESPONSIVO ================= */
+
+/* Tablet */
+@media (max-width: 1024px) {
+    #sobre-mim {
+        gap: 30px;
+    }
+
+    #info {
+        max-width: 500px;
+    }
+
+    #sobre-mim img {
+        max-width: 250px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    #top-bar nav ul {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #sobre-mim {
+        flex-direction: column;
+        text-align: center;
+        padding: 40px 20px;
+    }
+
+    #info {
+        width: 100%;
+    }
+
+    #info h1 {
+        font-size: 2.2rem;
+    }
+
+    #info p {
+        font-size: 1.1rem;
+    }
+
+    #sobre-mim img {
+        max-width: 80%;
+        margin-top: 20px;
+    }
+
+    #botões {
+        justify-content: center;
+    }
+
+    h2.titulo{
+        font-size: 2rem;
+    }
+
+    .container-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .habilidades-container {
+        grid-template-columns: 1fr; /* Uma coluna só no mobile */
+        gap: 30px;
+    }
+    
+    .habilidades-container h3 {
+        font-size: 1.5rem;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+}
+
+/* Telas grandes */
+@media (min-width: 1400px) {
+
+    main {
+        max-width: 90%;
+    }
+
+    #info h1 {
+        font-size: 3.5rem;
+    }
+
+    #info p {
+        font-size: 1.5rem;
+    }
+
+    /*
+    .container-cards {
+        grid-template-columns: repeat(3, 1fr);
+    }
+        */
+}

@@ -42,9 +42,6 @@ function ExibirFilmes (filmes) {
 
         GridResult.innerHTML += `
             <div class="cardMovie">
-                <div class = "movie-poster">
-                    <img src = "${(dado.poster != "N/A") ? dado.poster : "https://www.pintarecolorir.com.br/imagem/desenhos-gato-modelo/gato-bola-modelo-desenho.jpg"}" alt = "movie poster">
-                </div>
                 <div class = "movie-info">
                     <h3 class = "movie-title">${dado.titulo}</h3>
                     <br>
@@ -52,6 +49,9 @@ function ExibirFilmes (filmes) {
                         <li class = "year">Year: ${dado.ano}</li>
                         
                     </ul>
+                </div>
+                <div class = "movie-poster">
+                    <img src = "${(dado.poster != "N/A") ? dado.poster : "https://www.pintarecolorir.com.br/imagem/desenhos-gato-modelo/gato-bola-modelo-desenho.jpg"}" alt = "movie poster">
                 </div>
             </div>
         `;
