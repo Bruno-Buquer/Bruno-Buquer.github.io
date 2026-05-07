@@ -1,0 +1,30 @@
+
+#rodape {
+    background-color: #012E40;
+    color: #F2E3D5;
+    padding: 20px;
+    /*
+    padding: 50px 20px 20px;
+    margin-top: 80px;*/
+}
+
+.footer-bottom {
+    max-width: 1200px;
+    margin: 20px auto 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+.scroll-top {
+    color: #3CA6A6;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.scroll-top:hover {
+    text-decoration: underline;
+    cursor:pointer;
+}

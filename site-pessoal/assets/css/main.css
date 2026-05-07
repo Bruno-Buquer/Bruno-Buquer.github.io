@@ -1,91 +1,16 @@
+@import url("./reset.css");
 @import url("./fontes/fontes.css");
-
-/* ================= RESET ================= */
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    margin: 0;
-    padding: 0;
-    background: linear-gradient(135deg, #F2E3D5 60%, #3CA6A6 100%);
-    color: #012E40;
-    font-family: 'Adagio Slab', serif;
-}
-
-ul {
-    list-style: none;
-}
-
-a {
-    all: unset; /*Tira todos os efeitos dos links */
-}
+@import url("./navbar.css");
+@import url("./animations.css");
+@import url("./rodape.css");
 
 /* Paleta de cores
 
 Azul escuro: #012E40
 Azul petróleo: #024959
-Verde azulado: #026773li a
+Verde azulado: #026773li
 Verde claro: #3CA6A6
 Bege claro: #F2E3D5 
-
-/* ================= ANIMAÇÃO ================= */
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(60px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes pular{
-    100%{
-        top: -1px;
-    }
-}
-
-/* ================= NAVBAR ================= */
-
-#top-bar {
-    background: rgba(1, 46, 64, 0.8);
-    backdrop-filter: blur(7px);
-    width: 100%;
-    padding: 20px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    transition: transform 0.3s ease;
-}
-
-.nav-hidden {
-    transform: translateY(-100%);
-}
-
-#top-bar nav ul {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    padding: 0;
-}
-
-#top-bar nav ul li a {
-    color: #F2E3D5;
-    padding: 10px 15px;
-    border-radius: 50px;
-    transition: 0.3s;
-}
-
-#top-bar nav ul li a:hover {
-    background-color: #3CA6A6;
-    color: #012E40;
-}
 
 /* ================= MAIN ================= */
 
@@ -158,10 +83,6 @@ main {
     border-radius: 20px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
-
-/* ================= HABILIDADES & TECH ================= */
-
-
 
 /* ================= FORMAÇÃO ================= */
 
@@ -301,6 +222,7 @@ h2.titulo span.end-letter {
 .card-formacao:hover {
     transform: translateY(-10px);
     box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    cursor: pointer;
 }
 
 .card-formacao .periodo {
@@ -380,7 +302,7 @@ h2.titulo span.end-letter {
     font-weight: bold;
     font-size: 1rem;
     transition: 0.3s;
-    cursor: default;
+    cursor: pointer;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
@@ -455,37 +377,6 @@ h2.titulo span.end-letter {
     border-color: #012E40;
 }
 
-/* ================= FOOTER ================= */
-
-#rodape {
-    background-color: #012E40;
-    color: #F2E3D5;
-    padding: 20px;
-    /*
-    padding: 50px 20px 20px;
-    margin-top: 80px;*/
-}
-
-.footer-bottom {
-    max-width: 1200px;
-    margin: 20px auto 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.9rem;
-    opacity: 0.7;
-}
-
-.scroll-top {
-    color: #3CA6A6;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.scroll-top:hover {
-    text-decoration: underline;
-}
-
 /* ================= RESPONSIVO ================= */
 
 /* Tablet */
@@ -505,12 +396,6 @@ h2.titulo span.end-letter {
 
 /* Mobile */
 @media (max-width: 768px) {
-    #top-bar nav ul {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
     #sobre-mim {
         flex-direction: column;
         text-align: center;

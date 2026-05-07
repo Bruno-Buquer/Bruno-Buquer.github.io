@@ -1,0 +1,111 @@
+@import url("./reset.css");
+@import url("./fontes/fontes.css");
+@import url("./navbar.css");
+@import url("./animations.css");
+@import url("./rodape.css");
+
+
+/* ================= TÍTULOS ================= */
+.main-title {
+    animation: fadeIn 1.2s ease-out;
+}
+
+.main-title h1 {
+    padding-top: 80px;
+    text-align: center;
+    font-size: 3rem;
+    color: #012E40;
+    margin-bottom: 10px;
+
+}
+
+.main-title p {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #024959;
+    opacity: 0.8;
+    margin-bottom: 60px;
+}
+
+/* ================= PROJETOS ================= */
+.header-projeto {
+    margin-left: 30px;
+    margin-bottom: 30px;
+    /* A barra agora fica no container, abraçando o grupo */
+    border-left: 5px solid #026773; 
+    padding-left: 20px;
+    animation: fadeIn 1.2s ease-out;
+}
+
+.header-projeto h2 {
+    
+    font-size: 2.5rem;
+    color: #012E40; 
+    margin: 0;
+    padding-left: 15px;
+    line-height: 1.1;
+}
+
+.header-projeto p {
+    font-size: 1.3rem;
+    color: #024959; /* Azul petróleo para o subtítulo */
+    margin-top: 10px;
+    margin-bottom: 0;
+    opacity: 0.85;
+    max-width: 800px; /* Limita a largura para melhor leitura */
+    font-weight: 500;
+}
+
+.container-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+    width: 90%;
+    margin: 50px auto;
+    animation: fadeIn 1.2s ease-out;
+}
+
+.card-conteudo {
+    background: #FAF6F0;
+    padding: 30px;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    border-left: 8px solid #026773; /* Destaque em Verde Azulado */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    transition: 0.3s;
+}
+
+.card-conteudo:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    cursor: pointer;
+}
+
+.card-conteudo ul {
+    display: flex;
+    gap: 15px;
+}
+
+.card-conteudo ul li {
+    background-color: #026773;
+    color: #F2E3D5;
+    padding: 5px 10px;
+    border-radius: 50px;
+    transition: 0.3s;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* ================= RESPONSIVO ================= */
+
+/* Mobile */
+@media (max-width: 768px) {
+    .titulo-principal {
+        padding-top: 200px;
+    }
+
+    .container-cards {
+        grid-template-columns: 1fr;
+    }
+}
