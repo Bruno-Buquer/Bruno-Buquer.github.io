@@ -97,6 +97,109 @@
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
+/* ================= MODAL PROJETO ================= */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(1, 46, 64, 0.55);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.modal-overlay.is-open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-dialog {
+    position: relative;
+    width: 100%;
+    max-width: 560px;
+    max-height: min(85vh, 640px);
+    overflow-y: auto;
+    padding: 36px 32px 32px;
+    background: #FAF6F0;
+    border-radius: 20px;
+    border-left: 8px solid #026773;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.18);
+    transform: translateY(16px) scale(0.98);
+    transition: transform 0.25s ease;
+}
+
+.modal-overlay.is-open .modal-dialog {
+    transform: translateY(0) scale(1);
+}
+
+.modal-fechar {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 12px;
+    background: transparent;
+    color: #012E40;
+    font-size: 1.75rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.modal-fechar:hover {
+    background: rgba(2, 103, 115, 0.12);
+    color: #026773;
+}
+
+.modal-titulo {
+    font-size: 1.75rem;
+    color: #012E40;
+    margin: 0 40px 16px 0;
+    line-height: 1.2;
+}
+
+.modal-descricao {
+    font-size: 1.1rem;
+    color: #024959;
+    line-height: 1.55;
+    margin: 0 0 24px;
+    opacity: 0.92;
+}
+
+.modal-rotulo-tecnologias {
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #026773;
+    margin: 0 0 12px;
+}
+
+.modal-tecnologias {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.modal-tecnologias li {
+    background-color: #026773;
+    color: #F2E3D5;
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 0.95rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
 /* ================= RESPONSIVO ================= */
 
 /* Mobile */
