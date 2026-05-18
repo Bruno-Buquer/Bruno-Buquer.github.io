@@ -143,6 +143,7 @@ botao.addEventListener("click", () => {
         let cores = verificaPalavra(palavraDigitada);
         
         //Adiciona as li na tela juntamente com as cores selecionadas!
+        /*
         for (let i = 0; i < 5; i++) {
       	  const caixaLetra = document.createElement("li");
       	  caixaLetra.classList.add("caixaLetra");
@@ -156,6 +157,26 @@ botao.addEventListener("click", () => {
             case "-": caixaLetra.classList.add("naoTem");
           }
           grid.appendChild(caixaLetra); 
+      	}*/
+        for (let i = 0; i < 5; i++) {
+          //Crie o elementos li
+          let caixaLetra = document.querySelector("#grid");
+          
+          let resposta = "";
+          //Continue o switch abaixo, mas agora colocando a classe para quando for "A" e quando for "-"
+          switch(cores[i]) {
+            case "V": resposta = "correto";
+            break;
+            //Classe para o A: "existeMasErrado"
+            case "A": resposta = "existeMasErrado";
+            break;
+            //Clase para o caso "-": "naoTem"
+            case "-": resposta = "naoTem";
+            break;
+          }
+
+          caixaLetra.innerHTML += `<li class=\"caixaLetra ${resposta}\">${palavraDigitada[i]}</li>`;
+
       	}
           //Reseta todas as variaveis para a próxima rodada
           document.getElementById("palavra").value = "";

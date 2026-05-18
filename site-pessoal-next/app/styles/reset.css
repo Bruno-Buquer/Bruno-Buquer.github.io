@@ -1,0 +1,19 @@
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #F2E3D5 60%, #3CA6A6 100%);
+    color: #012E40;
+    font-family: 'Adagio Slab', serif;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    all: unset; /*Tira todos os efeitos dos links */
+}
