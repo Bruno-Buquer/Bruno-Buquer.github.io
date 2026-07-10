@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Batalha Pokémon</title>
+<style>
+  :root{
+    --shell-1:#333a4d;
+    --shell-2:#1d212b;
+    --shell-edge:#12141c;
+    --panel-cream:#f7efd8;
+    --panel-edge:#12141c;
+    --ink:#28241e;
+    --ink-soft:#5a5346;
+    --red:#e0453f;
+    --yellow:#ffcb05;
+    --blue:#3b4cca;
+    --hp-green:#78c850;
+    --hp-yellow:#f8d030;
+    --hp-red:#f85888;
+    --field-sky-1:#d8f0c4;
+    --field-sky-2:#f3fbe6;
+    --field-ground-p:#bfe08f;
+    --field-ground-o:#a9d17b;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    min-height:100vh;
+    background: radial-gradient(circle at 30% 10%, #2b2f3f, #14161e 70%);
+    font-family: 'Courier New', Courier, monospace;
+    color:var(--ink);
+    padding: 28px 14px 60px;
+  }
+  button{font-family:inherit;}
+  button:focus-visible, input:focus-visible, .card:focus-visible{
+    outline: 3px solid var(--yellow);
+    outline-offset: 2px;
+  }
+
+  /* ===== Console shell ===== */
+  .gba{
+    max-width: 920px;
+    margin: 0 auto;
+    background: linear-gradient(160deg,var(--shell-1),var(--shell-2));
+    border: 2px solid var(--shell-edge);
+    border-radius: 26px;
+    padding: 22px 22px 30px;
+    box-shadow: 0 24px 60px rgba(0,0,0,.55), inset 0 2px 0 rgba(255,255,255,.06);
+  }
+  .gba-top{
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom: 14px; padding: 0 6px;
+  }
+  .gba-brand{
+    color:#d7dbee; font-weight:700; letter-spacing:4px; font-size:12px; text-transform:uppercase;
+  }
+  .gba-brand b{ color:var(--yellow); }
+  .gba-leds{ display:flex; gap:8px; align-items:center; }
+  .led{ width:9px; height:9px; border-radius:50%; background:var(--red); box-shadow:0 0 8px var(--red); }
+  .led.on{ background:var(--hp-green); box-shadow:0 0 8px var(--hp-green); }
+
+  .screen{
+    position:relative;
+    background: var(--panel-cream);
+    border-radius: 10px;
+    border: 5px solid var(--panel-edge);
+    box-shadow: inset 0 0 0 3px #7c8199, inset 0 0 24px rgba(0,0,0,.18);
+    overflow:hidden;
+    min-height: 560px;
+  }
+  .scanlines{ position:absolute; inset:0; pointer-events:none;
+    background: repeating-linear-gradient(rgba(0,0,0,0) 0px, rgba(0,0,0,0) 2px, rgba(0,0,0,.045) 3px, rgba(0,0,0,0) 4px);
+    mix-blend-mode: multiply;
+  }
+
+  h1,h2,h3{ margin:0; }
+
+  /* ===== Selection screen ===== */
+  .select-wrap{ padding: 20px; position:relative; z-index:1; }
+  .select-title{
+    text-align:center; font-size: 20px; font-weight:900; letter-spacing:3px;
+    color: var(--ink); margin-bottom: 4px; text-transform:uppercase;
+  }
+  .select-sub{ text-align:center; color:var(--ink-soft); font-size:12px; margin-bottom:20px; letter-spacing:1px;}
+  .select-cols{ display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
+  @media (max-width: 720px){ .select-cols{ grid-template-columns: 1fr; } }
+
+  .side-panel{
+    background:#fffdf5; border:3px solid var(--panel-edge); border-radius:8px; padding:14px;
+    box-shadow: 3px 3px 0 rgba(0,0,0,.15);
+  }
+  .side-panel.player{ box-shadow: 3px 3px 0 rgba(59,76,202,.35); border-color:#2b3585;}
+  .side-panel.rival{ box-shadow: 3px 3px 0 rgba(224,69,63,.35); border-color:#8c211d;}
+  .side-title{ font-size:12px; letter-spacing:2px; font-weight:900; margin-bottom:10px; text-transform:uppercase;}
+  .side-panel.player .side-title{ color:#2b3585;}
+  .side-panel.rival .side-title{ color:#8c211d;}
+
+  .search-row{ display:flex; gap:6px; margin-bottom:10px; }
+  .search-row input{
+    flex:1; padding:8px 10px; border:2px solid var(--panel-edge); border-radius:5px;
+    font-family:inherit; font-size:13px; background:#fff;
+  }
+  .btn{
+    border:2px solid var(--panel-edge); border-radius:6px; padding:8px 12px;
+    background: var(--yellow); font-weight:900; font-size:12px; letter-spacing:1px;
+    cursor:pointer; text-transform:uppercase; box-shadow: 2px 2px 0 rgba(0,0,0,.35);
+    transition: transform .05s ease;
+  }
+  .btn:hover{ filter:brightness(1.06); }
+  .btn:active{ transform: translate(2px,2px); box-shadow:none; }
+  .btn.secondary{ background:#e7e2cf; }
+  .btn.big{ padding:14px 26px; font-size:14px; }
+  .btn:disabled{ opacity:.45; cursor:not-allowed; box-shadow:none; }
+
+  .chips{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px; }
+  .chip{
+    border:2px solid var(--panel-edge); border-radius:20px; padding:4px 10px; font-size:11px;
+    background:#fff; cursor:pointer; font-weight:700; text-transform:capitalize;
+  }
+  .chip:hover{ background:var(--yellow); }
+
+  .preview{
+    min-height:150px; border:2px dashed #b9b2a0; border-radius:8px;
+    display:flex; align-items:center; justify-content:center; flex-direction:column;
+    gap:6px; padding:10px; text-align:center;
+  }
+  .preview.filled{ border-style:solid; border-color:var(--panel-edge); background:#fbf6e6; }
+  .preview img{ width:96px; height:96px; image-rendering:pixelated; filter:drop-shadow(2px 3px 0 rgba(0,0,0,.2)); }
+  .preview .pname{ font-weight:900; letter-spacing:1px; text-transform:uppercase; font-size:13px;}
+  .preview .ptypes{ display:flex; gap:4px; }
+  .preview .empty-txt{ color:#a39c88; font-size:12px; }
+  .preview .err-txt{ color:var(--red); font-size:12px; font-weight:700; }
+
+  .type-badge{
+    font-size:9px; font-weight:900; color:#fff; padding:2px 7px; border-radius:10px;
+    text-transform:uppercase; letter-spacing:.5px; text-shadow: 1px 1px 0 rgba(0,0,0,.25);
+  }
+
+  .start-row{ text-align:center; margin-top:18px; }
+  .start-hint{ font-size:11px; color:var(--ink-soft); margin-top:8px; }
+
+  /* ===== Battle screen ===== */
+  .battle-field{
+    position:relative; height: 300px;
+    background: linear-gradient(180deg, var(--field-sky-1) 0%, var(--field-sky-2) 60%, var(--field-sky-2) 100%);
+    overflow:hidden; border-bottom: 4px solid var(--panel-edge);
+  }
+  .ground-opp{
+    position:absolute; right:6%; top:76px; width:190px; height:60px; border-radius:50%;
+    background: var(--field-ground-o); box-shadow: 0 6px 0 rgba(0,0,0,.08);
+  }
+  .ground-player{
+    position:absolute; left:4%; bottom:14px; width:230px; height:70px; border-radius:50%;
+    background: var(--field-ground-p); box-shadow: 0 6px 0 rgba(0,0,0,.08);
+  }
+  .mon-sprite{ position:absolute; image-rendering:pixelated; }
+  .mon-sprite.opp{ right:9%; top:22px; width:120px; height:120px; }
+  .mon-sprite.pl{ left:6%; bottom:24px; width:150px; height:150px; }
+  .mon-sprite img{ width:100%; height:100%; object-fit:contain; }
+  .mon-sprite.hit img{ animation: hitflash .35s steps(2,end) 2; }
+  @keyframes hitflash{ 0%{filter:brightness(1);} 50%{filter:brightness(3) saturate(0);} 100%{filter:brightness(1);} }
+  .mon-sprite.faint img{ animation: faintdrop .6s forwards; }
+  @keyframes faintdrop{ to{ transform: translateY(60px); opacity:0; } }
+
+  .hud{
+    position:absolute; background:var(--panel-cream); border:3px solid var(--panel-edge);
+    border-radius:8px; padding:8px 10px; box-shadow: 3px 3px 0 rgba(0,0,0,.25); min-width:190px;
+  }
+  .hud.opp-hud{ left:16px; top:14px; }
+  .hud.pl-hud{ right:16px; bottom:16px; }
+  .hud-name{ font-size:12px; font-weight:900; letter-spacing:.5px; text-transform:uppercase; display:flex; justify-content:space-between; }
+  .hud-lv{ color:var(--ink-soft); font-size:11px; }
+  .hp-label{ font-size:9px; font-weight:900; color:var(--ink-soft); margin-top:5px; letter-spacing:1px; }
+  .hp-bar-bg{ height:8px; background:#3a3a3a; border-radius:5px; margin-top:2px; overflow:hidden; border:1px solid #000;}
+  .hp-bar-fill{ height:100%; background:var(--hp-green); transition: width .5s ease, background .3s ease; }
+  .hp-num{ font-size:10px; text-align:right; margin-top:2px; color:var(--ink-soft); }
+
+  .dialogue{
+    position:relative; background:var(--panel-cream); padding:16px 18px; min-height:190px;
+  }
+  .dialogue-box{
+    background:#fffef8; border:3px solid var(--panel-edge); border-radius:8px; padding:14px 16px;
+    min-height:64px; font-size:14px; line-height:1.5; cursor:pointer; position:relative;
+    box-shadow: inset 0 0 0 2px #d8d0b8;
+  }
+  .dialogue-box .arrow{ position:absolute; right:14px; bottom:8px; font-size:12px; animation:bob 1s infinite; color:var(--ink-soft); }
+  @keyframes bob{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(4px);} }
+
+  .moves-grid{ display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:12px; }
+  .move-btn{
+    text-align:left; border:2px solid var(--panel-edge); border-radius:7px; padding:9px 11px;
+    background:#fff; cursor:pointer; box-shadow:2px 2px 0 rgba(0,0,0,.2);
+  }
+  .move-btn:hover{ background:#fff7dd; }
+  .move-btn:active{ transform:translate(2px,2px); box-shadow:none; }
+  .move-top{ display:flex; justify-content:space-between; align-items:center; }
+  .move-name{ font-weight:900; font-size:12.5px; text-transform:capitalize; }
+  .move-meta{ font-size:10px; color:var(--ink-soft); margin-top:3px; }
+
+  .result-overlay{
+    position:absolute; inset:0; background:rgba(20,18,14,.72); display:flex; align-items:center; justify-content:center;
+    flex-direction:column; gap:14px; z-index:5; text-align:center; padding:20px;
+  }
+  .result-card{ background:var(--panel-cream); border:4px solid var(--panel-edge); border-radius:10px; padding:26px 30px; box-shadow: 6px 6px 0 rgba(0,0,0,.4); }
+  .result-title{ font-size:20px; font-weight:900; letter-spacing:2px; margin-bottom:6px; text-transform:uppercase; }
+  .result-title.win{ color:#2f7d32; }
+  .result-title.lose{ color:var(--red); }
+
+  .loading{
+    position:absolute; inset:0; background:var(--panel-cream); display:flex; align-items:center; justify-content:center;
+    flex-direction:column; gap:14px; z-index:6;
+  }
+  .pokeball{ width:44px; height:44px; border-radius:50%; background:#fff; border:4px solid #222; position:relative; overflow:hidden; animation:spin 1s linear infinite;}
+  .pokeball::before{ content:''; position:absolute; top:0; left:0; right:0; height:50%; background:var(--red); }
+  .pokeball::after{ content:''; position:absolute; top:50%; left:50%; width:14px; height:14px; margin:-7px 0 0 -7px; background:#fff; border:4px solid #222; border-radius:50%; }
+  @keyframes spin{ to{ transform: rotate(360deg); } }
+  .loading-txt{ font-size:12px; letter-spacing:2px; font-weight:900; color:var(--ink-soft); text-transform:uppercase; }
+
+  .hidden{ display:none !important; }
+  .sr-only{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
+</style>
+</head>
+<body>
+
+<div class="gba">
+  <div class="gba-top">
+    <div class="gba-brand">POKÉ <b>BATALHA</b> · EDIÇÃO XABLAU</div>
+    <div class="gba-leds"><span class="led on"></span><span class="led"></span></div>
+  </div>
+
+  <div class="screen" id="screen">
+    <div class="scanlines"></div>
+
+    <!-- ===== SELEÇÃO ===== -->
+    <div id="view-select" class="select-wrap">
+      <h1 class="select-title">Escolha seus lutadores</h1>
+      <p class="select-sub">Busque pelo nome, clique num atalho ou tente a sorte no aleatório</p>
+
+      <div class="select-cols">
+        <div class="side-panel player">
+          <div class="side-title">Seu Pokémon</div>
+          <div class="search-row">
+            <input type="text" id="player-search" placeholder="ex: pikachu" aria-label="Buscar seu Pokémon">
+            <button class="btn" id="player-search-btn">Buscar</button>
+          </div>
+          <div class="chips" id="player-chips"></div>
+          <button class="btn secondary" id="player-random-btn" style="margin-bottom:10px;">🎲 Aleatório</button>
+          <div class="preview" id="player-preview"><span class="empty-txt">Nenhum Pokémon selecionado ainda</span></div>
+        </div>
+
+        <div class="side-panel rival">
+          <div class="side-title">Pokémon rival</div>
+          <div class="search-row">
+            <input type="text" id="rival-search" placeholder="ex: gengar" aria-label="Buscar Pokémon rival">
+            <button class="btn" id="rival-search-btn">Buscar</button>
+          </div>
+          <div class="chips" id="rival-chips"></div>
+          <button class="btn secondary" id="rival-random-btn" style="margin-bottom:10px;">🎲 Aleatório</button>
+          <div class="preview" id="rival-preview"><span class="empty-txt">Nenhum Pokémon selecionado ainda</span></div>
+        </div>
+      </div>
+
+      <div class="start-row">
+        <button class="btn big" id="start-battle-btn" disabled>Começar batalha!</button>
+        <div class="start-hint">Escolha os dois lados para liberar o botão</div>
+      </div>
+    </div>
+
+    <!-- ===== BATALHA ===== -->
+    <div id="view-battle" class="hidden">
+      <div class="battle-field">
+        <div class="ground-opp"></div>
+        <div class="ground-player"></div>
+        <div class="mon-sprite opp" id="opp-sprite"><img id="opp-sprite-img" src="" alt=""></div>
+        <div class="mon-sprite pl" id="pl-sprite"><img id="pl-sprite-img" src="" alt=""></div>
+
+        <div class="hud opp-hud">
+          <div class="hud-name"><span id="opp-name">-</span><span class="hud-lv">Nv. 50</span></div>
+          <div class="hp-label">PS</div>
+          <div class="hp-bar-bg"><div class="hp-bar-fill" id="opp-hp-fill"></div></div>
+        </div>
+        <div class="hud pl-hud">
+          <div class="hud-name"><span id="pl-name">-</span><span class="hud-lv">Nv. 50</span></div>
+          <div class="hp-label">PS</div>
+          <div class="hp-bar-bg"><div class="hp-bar-fill" id="pl-hp-fill"></div></div>
+          <div class="hp-num" id="pl-hp-num">-/-</div>
+        </div>
+      </div>
+
+      <div class="dialogue">
+        <div class="dialogue-box" id="dialogue-box" role="button" tabindex="0">
+          <span id="dialogue-text">O que fazer?</span>
+          <span class="arrow hidden" id="dialogue-arrow">▶</span>
+        </div>
+        <div class="moves-grid" id="moves-grid"></div>
+      </div>
+    </div>
+
+    <div class="loading hidden" id="loading-view">
+      <div class="pokeball"></div>
+      <div class="loading-txt" id="loading-text">Carregando...</div>
+    </div>
+
+    <div class="result-overlay hidden" id="result-overlay">
+      <div class="result-card">
+        <div class="result-title" id="result-title">-</div>
+        <div id="result-sub" style="font-size:12px;color:var(--ink-soft);margin-bottom:14px;">-</div>
+        <button class="btn" id="rematch-btn">Batalhar novamente</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  const API = "https://pokeapi.co/api/v2/";
+
+  const TYPE_COLORS = {
+    normal:'#A8A878', fire:'#F08030', water:'#6890F0', electric:'#F0C020',
+    grass:'#78C850', ice:'#98D8D8', fighting:'#C03028', poison:'#A040A0',
+    ground:'#E0C068', flying:'#A890F0', psychic:'#F85888', bug:'#A8B820',
+    rock:'#B8A038', ghost:'#705898', dragon:'#7038F8', dark:'#705848',
+    steel:'#B8B8D0', fairy:'#EE99AC'
+  };
+  const TYPE_PT = {
+    normal:'Normal', fire:'Fogo', water:'Água', electric:'Elétrico', grass:'Planta',
+    ice:'Gelo', fighting:'Lutador', poison:'Veneno', ground:'Terra', flying:'Voador',
+    psychic:'Psíquico', bug:'Inseto', rock:'Pedra', ghost:'Fantasma', dragon:'Dragão',
+    dark:'Sombrio', steel:'Aço', fairy:'Fada'
+  };
+  const TYPE_CHART = {
+    normal:{se:[],nve:['rock','steel'],ne:['ghost']},
+    fire:{se:['grass','ice','bug','steel'],nve:['fire','water','rock','dragon'],ne:[]},
+    water:{se:['fire','ground','rock'],nve:['water','grass','dragon'],ne:[]},
+    electric:{se:['water','flying'],nve:['electric','grass','dragon'],ne:['ground']},
+    grass:{se:['water','ground','rock'],nve:['fire','grass','poison','flying','bug','dragon','steel'],ne:[]},
+    ice:{se:['grass','ground','flying','dragon'],nve:['fire','water','ice','steel'],ne:[]},
+    fighting:{se:['normal','ice','rock','dark','steel'],nve:['poison','flying','psychic','bug','fairy'],ne:['ghost']},
+    poison:{se:['grass','fairy'],nve:['poison','ground','rock','ghost'],ne:['steel']},
+    ground:{se:['fire','electric','poison','rock','steel'],nve:['grass','bug'],ne:['flying']},
+    flying:{se:['grass','fighting','bug'],nve:['electric','rock','steel'],ne:[]},
+    psychic:{se:['fighting','poison'],nve:['psychic','steel'],ne:['dark']},
+    bug:{se:['grass','psychic','dark'],nve:['fire','fighting','poison','flying','ghost','steel','fairy'],ne:[]},
+    rock:{se:['fire','ice','flying','bug'],nve:['fighting','ground','steel'],ne:[]},
+    ghost:{se:['psychic','ghost'],nve:['dark'],ne:['normal']},
+    dragon:{se:['dragon'],nve:['steel'],ne:['fairy']},
+    dark:{se:['psychic','ghost'],nve:['fighting','dark','fairy'],ne:[]},
+    steel:{se:['ice','rock','fairy'],nve:['fire','water','electric','steel'],ne:[]},
+    fairy:{se:['fighting','dragon','dark'],nve:['fire','poison','steel'],ne:[]}
+  };
+  const QUICK_PICKS = ['pikachu','charizard','blastoise','gengar','snorlax','dragonite','mewtwo','lucario'];
+  const RANDOM_POOL_MAX = 493; // até gen 4, garante bons sprites/movimentos
+
+  function typeBadge(type){
+    const el = document.createElement('span');
+    el.className='type-badge';
+    el.style.background = TYPE_COLORS[type] || '#888';
+    el.textContent = TYPE_PT[type] || type;
+    return el;
+  }
+
+  // ---------- estado ----------
+  const sel = { player:null, rival:null };
+  const battle = { player:null, opponent:null, queue:[], locked:false, over:false };
+
+  // ---------- elementos ----------
+  const el = (id)=>document.getElementById(id);
+  const playerPreview = el('player-preview');
+  const rivalPreview = el('rival-preview');
+  const startBtn = el('start-battle-btn');
+
+  function buildChips(containerId, side){
+    const c = el(containerId);
+    QUICK_PICKS.forEach(name=>{
+      const b = document.createElement('button');
+      b.className='chip'; b.type='button'; b.textContent = name;
+      b.addEventListener('click', ()=> selectPokemon(side, name));
+      c.appendChild(b);
+    });
+  }
+  buildChips('player-chips','player');
+  buildChips('rival-chips','rival');
+
+  el('player-search-btn').addEventListener('click', ()=>{
+    const v = el('player-search').value.trim();
+    if(v) selectPokemon('player', v);
+  });
+  el('rival-search-btn').addEventListener('click', ()=>{
+    const v = el('rival-search').value.trim();
+    if(v) selectPokemon('rival', v);
+  });
+  el('player-search').addEventListener('keydown', e=>{ if(e.key==='Enter') el('player-search-btn').click(); });
+  el('rival-search').addEventListener('keydown', e=>{ if(e.key==='Enter') el('rival-search-btn').click(); });
+
+  el('player-random-btn').addEventListener('click', ()=> selectPokemon('player', 1 + Math.floor(Math.random()*RANDOM_POOL_MAX)));
+  el('rival-random-btn').addEventListener('click', ()=> selectPokemon('rival', 1 + Math.floor(Math.random()*RANDOM_POOL_MAX)));
+
+  async function selectPokemon(side, nameOrId){
+    const preview = side==='player' ? playerPreview : rivalPreview;
+    preview.classList.remove('filled');
+    preview.innerHTML = '<span class="empty-txt">Buscando...</span>';
+    try{
+      const res = await fetch(`${API}pokemon/${String(nameOrId).toLowerCase().trim()}`);
+      if(!res.ok) throw new Error('not found');
+      const data = await res.json();
+      sel[side] = data;
+      renderPreview(preview, data);
+    }catch(err){
+      sel[side] = null;
+      preview.innerHTML = '<span class="err-txt">Pokémon não encontrado. Tente outro nome ou número.</span>';
+    }
+    startBtn.disabled = !(sel.player && sel.rival);
+  }
+
+  function renderPreview(container, data){
+    container.classList.add('filled');
+    container.innerHTML = '';
+    const img = document.createElement('img');
+    img.src = data.sprites.front_default || data.sprites.other?.['official-artwork']?.front_default || '';
+    img.alt = data.name;
+    const name = document.createElement('div');
+    name.className='pname'; name.textContent = data.name;
+    const types = document.createElement('div');
+    types.className='ptypes';
+    data.types.forEach(t=> types.appendChild(typeBadge(t.type.name)));
+    container.appendChild(img);
+    container.appendChild(name);
+    container.appendChild(types);
+  }
+
+  // ---------- montagem do lutador de batalha ----------
+  function calcStats(base){
+    const L = 50;
+    const hp = Math.floor((2*base.hp+31)*L/100) + L + 10;
+    const other = (b)=> Math.floor((2*b+31)*L/100) + 5;
+    return {
+      hp, attack: other(base.attack), defense: other(base.defense),
+      spAttack: other(base['special-attack']), spDefense: other(base['special-defense']),
+      speed: other(base.speed)
+    };
+  }
+
+  async function fetchMoveDetail(url){
+    const res = await fetch(url);
+    return res.json();
+  }
+
+  async function pickMoves(pokemonData){
+    const levelMoves = pokemonData.moves.map(m=>{
+      const d = m.version_group_details.find(v=>v.move_learn_method.name==='level-up');
+      return d ? { name:m.move.name, url:m.move.url, level:d.level_learned_at } : null;
+    }).filter(Boolean).sort((a,b)=> b.level - a.level);
+
+    const seen = new Set(); const ordered = [];
+    for(const m of levelMoves){ if(!seen.has(m.name)){ seen.add(m.name); ordered.push(m); } }
+
+    const chosen = [];
+    for(const m of ordered){
+      if(chosen.length >= 4) break;
+      try{
+        const d = await fetchMoveDetail(m.url);
+        if(d.power && d.damage_class && d.damage_class.name !== 'status'){
+          const ptName = d.names.find(n=> n.language.name==='pt-br' || n.language.name==='pt');
+          chosen.push({
+            name: ptName ? ptName.name : d.name.replace(/-/g,' '),
+            power: d.power,
+            type: d.type.name,
+            damageClass: d.damage_class.name,
+            accuracy: d.accuracy || 100
+          });
+        }
+      }catch(e){ /* ignora movimento que falhar */ }
+    }
+    if(chosen.length===0){
+      chosen.push({name:'Investida', power:40, type:'normal', damageClass:'physical', accuracy:100});
+    }
+    return chosen;
+  }
+
+  async function buildFighter(data){
+    const baseStats = {};
+    data.stats.forEach(s=> baseStats[s.stat.name] = s.base_stat);
+    const stats = calcStats(baseStats);
+    const moves = await pickMoves(data);
+    return {
+      name: data.name,
+      sprites: data.sprites,
+      types: data.types.map(t=>t.type.name),
+      stats, moves,
+      hp: stats.hp, maxHp: stats.hp
+    };
+  }
+
+  function typeEffectiveness(moveType, defTypes){
+    const chart = TYPE_CHART[moveType];
+    if(!chart) return 1;
+    let mult = 1;
+    defTypes.forEach(dt=>{
+      if(chart.se.includes(dt)) mult *= 2;
+      else if(chart.nve.includes(dt)) mult *= 0.5;
+      else if(chart.ne.includes(dt)) mult *= 0;
+    });
+    return mult;
+  }
+
+  function calcDamage(attacker, defender, move){
+    const L = 50;
+    const isPhysical = move.damageClass === 'physical';
+    const atkStat = isPhysical ? attacker.stats.attack : attacker.stats.spAttack;
+    const defStat = isPhysical ? defender.stats.defense : defender.stats.spDefense;
+    const stab = attacker.types.includes(move.type) ? 1.5 : 1;
+    const eff = typeEffectiveness(move.type, defender.types);
+    const rand = 0.85 + Math.random()*0.15;
+    let dmg = Math.floor(((2*L/5+2) * move.power * (atkStat/defStat)) / 50 + 2);
+    dmg = Math.max(eff===0?0:1, Math.floor(dmg * stab * eff * rand));
+    return { dmg, eff };
+  }
+
+  // ---------- fluxo de telas ----------
+  el('start-battle-btn').addEventListener('click', startBattle);
+  el('rematch-btn').addEventListener('click', ()=>{
+    el('result-overlay').classList.add('hidden');
+    el('view-battle').classList.add('hidden');
+    el('view-select').classList.remove('hidden');
+  });
+
+  async function startBattle(){
+    el('view-select').classList.add('hidden');
+    el('loading-view').classList.remove('hidden');
+    el('loading-text').textContent = 'Preparando a batalha...';
+    try{
+      const [player, opponent] = await Promise.all([
+        buildFighter(sel.player),
+        buildFighter(sel.rival)
+      ]);
+      battle.player = player;
+      battle.opponent = opponent;
+      battle.over = false;
+      battle.locked = false;
+      battle.queue = [];
+      renderBattleInit();
+      el('loading-view').classList.add('hidden');
+      el('view-battle').classList.remove('hidden');
+      pushMessages([
+        { text: `Um treinador rival te desafiou com ${opponent.name.toUpperCase()}!` },
+        { text: `Vai, ${player.name.toUpperCase()}!` }
+      ]);
+    }catch(err){
+      el('loading-text').textContent = 'Erro ao carregar dados. Tente novamente.';
+      setTimeout(()=>{
+        el('loading-view').classList.add('hidden');
+        el('view-select').classList.remove('hidden');
+      }, 1800);
+    }
+  }
+
+  function renderBattleInit(){
+    const p = battle.player, o = battle.opponent;
+    el('pl-name').textContent = p.name;
+    el('opp-name').textContent = o.name;
+    el('pl-sprite-img').src = p.sprites.back_default || p.sprites.front_default || '';
+    el('opp-sprite-img').src = o.sprites.front_default || '';
+    el('pl-sprite').classList.remove('faint','hit');
+    el('opp-sprite').classList.remove('faint','hit');
+    updateHpBar('pl', p.hp, p.maxHp, true);
+    updateHpBar('opp', o.hp, o.maxHp, false);
+    el('result-overlay').classList.add('hidden');
+    renderMoveButtons();
+  }
+
+  function updateHpBar(prefix, hp, maxHp, showNum){
+    const pct = Math.max(0, Math.min(100, (hp/maxHp)*100));
+    const fill = el(prefix+'-hp-fill');
+    fill.style.width = pct + '%';
+    fill.style.background = pct > 50 ? 'var(--hp-green)' : pct > 20 ? 'var(--hp-yellow)' : 'var(--hp-red)';
+    if(showNum) el('pl-hp-num').textContent = `${Math.max(0,hp)}/${maxHp}`;
+  }
+
+  function renderMoveButtons(){
+    const grid = el('moves-grid');
+    grid.innerHTML = '';
+    grid.classList.remove('hidden');
+    battle.player.moves.forEach((m, i)=>{
+      const b = document.createElement('button');
+      b.className='move-btn';
+      b.innerHTML = `<div class="move-top"><span class="move-name">${m.name}</span></div>
+                      <div class="move-meta">Poder ${m.power} · Precisão ${m.accuracy}%</div>`;
+      const badgeWrap = document.createElement('div');
+      badgeWrap.style.marginTop='4px';
+      badgeWrap.appendChild(typeBadge(m.type));
+      b.appendChild(badgeWrap);
+      b.addEventListener('click', ()=> doTurn(i));
+      grid.appendChild(b);
+    });
+  }
+  function hideMoveButtons(){ el('moves-grid').classList.add('hidden'); }
+
+  // ---------- diálogo / fila de mensagens ----------
+  const dialogueBox = el('dialogue-box');
+  const dialogueText = el('dialogue-text');
+  const dialogueArrow = el('dialogue-arrow');
+
+  function pushMessages(arr){
+    battle.queue.push(...arr);
+    showNextMessage();
+  }
+  function showNextMessage(){
+    if(battle.queue.length === 0){
+      dialogueArrow.classList.add('hidden');
+      if(battle.over){ showResult(); }
+      else { dialogueText.textContent = 'O que fazer?'; renderMoveButtons(); battle.locked = false; }
+      return;
+    }
+    hideMoveButtons();
+    const item = battle.queue.shift();
+    dialogueText.textContent = item.text;
+    if(item.onShow) item.onShow();
+    dialogueArrow.classList.toggle('hidden', battle.queue.length===0 && !battle.over);
+    if(battle.queue.length>0 || battle.over) dialogueArrow.classList.remove('hidden');
+  }
+  dialogueBox.addEventListener('click', ()=>{
+    if(battle.queue.length>0) showNextMessage();
+  });
+  dialogueBox.addEventListener('keydown', e=>{
+    if((e.key==='Enter' || e.key===' ') && battle.queue.length>0){ e.preventDefault(); showNextMessage(); }
+  });
+
+  function flashHit(prefix){
+    const node = el(prefix==='pl' ? 'pl-sprite' : 'opp-sprite');
+    node.classList.remove('hit'); void node.offsetWidth; node.classList.add('hit');
+  }
+  function dropFaint(prefix){
+    const node = el(prefix==='pl' ? 'pl-sprite' : 'opp-sprite');
+    node.classList.add('faint');
+  }
+
+  function applyDamage(sideKey, dmg){
+    const prefix = sideKey==='player' ? 'pl' : 'opp';
+    const fighter = battle[sideKey];
+    fighter.hp = Math.max(0, fighter.hp - dmg);
+    updateHpBar(prefix, fighter.hp, fighter.maxHp, sideKey==='player');
+    flashHit(prefix);
+    if(fighter.hp <= 0) dropFaint(prefix);
+  }
+
+  // ---------- turno ----------
+  function doTurn(moveIndex){
+    if(battle.locked || battle.over) return;
+    battle.locked = true;
+    hideMoveButtons();
+
+    const player = battle.player, opponent = battle.opponent;
+    const playerMove = player.moves[moveIndex];
+    const opponentMove = opponent.moves[Math.floor(Math.random()*opponent.moves.length)];
+
+    let playerFirst;
+    if(player.stats.speed === opponent.stats.speed) playerFirst = Math.random() < 0.5;
+    else playerFirst = player.stats.speed > opponent.stats.speed;
+
+    const order = playerFirst
+      ? [ ['player','opponent',playerMove], ['opponent','player',opponentMove] ]
+      : [ ['opponent','player',opponentMove], ['player','opponent',playerMove] ];
+
+    const simHp = { player: player.hp, opponent: opponent.hp };
+    const msgs = [];
+    let battleEnds = false;
+    let winnerKey = null;
+
+    for(const [atkKey, defKey, move] of order){
+      if(simHp[atkKey] <= 0) continue; // já desmaiado, não age
+      const atk = battle[atkKey], def = battle[defKey];
+      msgs.push({ text: `${atk.name.toUpperCase()} usou ${move.name}!` });
+
+      const roll = Math.random()*100;
+      if(roll > move.accuracy){
+        msgs.push({ text: `${atk.name.toUpperCase()} errou o golpe!` });
+        continue;
+      }
+      const { dmg, eff } = calcDamage(atk, def, move);
+      simHp[defKey] = Math.max(0, simHp[defKey] - dmg);
+      msgs.push({ text: `${def.name.toUpperCase()} sofreu ${dmg} de dano!`, onShow: ()=> applyDamage(defKey, dmg) });
+      if(eff > 1) msgs.push({ text: 'É super efetivo!' });
+      else if(eff > 0 && eff < 1) msgs.push({ text: 'Não é muito eficaz...' });
+      else if(eff === 0) msgs.push({ text: `Não afeta ${def.name.toUpperCase()}...` });
+
+      if(simHp[defKey] <= 0){
+        msgs.push({ text: `${def.name.toUpperCase()} desmaiou!` });
+        battleEnds = true;
+        winnerKey = atkKey;
+        break;
+      }
+    }
+
+    if(battleEnds){
+      battle.over = true;
+      battle.winner = winnerKey;
+      msgs.push({ text: winnerKey==='player' ? 'Você venceu a batalha!' : 'Você perdeu a batalha...' });
+    }
+
+    pushMessages(msgs);
+  }
+
+  function showResult(){
+    const overlay = el('result-overlay');
+    const title = el('result-title');
+    const sub = el('result-sub');
+    const won = battle.winner === 'player';
+    title.textContent = won ? 'VITÓRIA!' : 'DERROTA';
+    title.className = 'result-title ' + (won ? 'win' : 'lose');
+    sub.textContent = won
+      ? `${battle.player.name.toUpperCase()} venceu ${battle.opponent.name.toUpperCase()}!`
+      : `${battle.opponent.name.toUpperCase()} venceu essa. Tente outra dupla!`;
+    overlay.classList.remove('hidden');
+  }
+
+})();
+</script>
+</body>
+</html>

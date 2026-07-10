@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Xablau Encode</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #170a2b;
+    --bg-2: #24123f;
+    --surface: #2c1650;
+    --surface-2: #3a1d68;
+    --green: #39ff8f;
+    --gold: #ffd23f;
+    --pink: #ff3ea5;
+    --cream: #f4f1ea;
+    --muted: #b8a9d9;
+    --display: 'Baloo 2', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(ellipse at 20% -10%, #4a2380 0%, transparent 55%),
+      radial-gradient(ellipse at 90% 10%, #1e3a5f22 0%, transparent 45%),
+      var(--bg);
+    color:var(--cream);
+    font-family:var(--mono);
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+
+  a{color:var(--green);}
+
+  .wrap{max-width:920px; margin:0 auto; padding:0 24px;}
+
+  /* ---------- HERO ---------- */
+  header.hero{
+    padding:72px 24px 40px;
+    text-align:center;
+    position:relative;
+  }
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:13px;
+    letter-spacing:.28em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:18px;
+  }
+  h1.title{
+    font-family:var(--display);
+    font-weight:800;
+    font-size:clamp(2.6rem, 9vw, 5rem);
+    line-height:0.95;
+    margin:0;
+    letter-spacing:-.01em;
+    color:var(--green);
+    text-shadow:
+      0 0 18px rgba(57,255,143,.55),
+      0 0 46px rgba(57,255,143,.25);
+  }
+  .title .accent{color:var(--pink); text-shadow:0 0 18px rgba(255,62,165,.55), 0 0 46px rgba(255,62,165,.25);}
+  p.tagline{
+    font-family:var(--mono);
+    color:var(--muted);
+    font-size:clamp(.95rem, 2vw, 1.1rem);
+    max-width:520px;
+    margin:20px auto 0;
+    line-height:1.6;
+  }
+
+  /* ---------- HORSE MARQUEE (signature element) ---------- */
+  .marquee{
+    position:relative;
+    height:64px;
+    margin:44px 0 0;
+    overflow:hidden;
+    border-top:1px dashed #ffffff22;
+    border-bottom:1px dashed #ffffff22;
+    background:linear-gradient(90deg, transparent, #ffffff08, transparent);
+  }
+  .marquee-track{
+    position:absolute;
+    white-space:nowrap;
+    font-size:30px;
+    top:50%;
+    transform:translateY(-50%);
+    animation:gallop 9s linear infinite;
+    filter:drop-shadow(0 0 6px rgba(57,255,143,.6));
+  }
+  .marquee-track span{display:inline-block; margin:0 28px; animation:bounce 0.45s ease-in-out infinite alternate;}
+  .marquee-track span:nth-child(even){animation-delay:.15s;}
+  @keyframes gallop{ from{transform:translate(0%, -50%);} to{transform:translate(-50%, -50%);} }
+  @keyframes bounce{ from{transform:translateY(0);} to{transform:translateY(-6px);} }
+  @media (prefers-reduced-motion: reduce){
+    .marquee-track, .marquee-track span{animation:none;}
+  }
+
+  /* ---------- TOOL ---------- */
+  main{padding:56px 24px 24px;}
+  .panel{
+    background:linear-gradient(180deg, var(--surface), var(--bg-2));
+    border:1px solid #ffffff14;
+    border-radius:18px;
+    padding:28px;
+    box-shadow:0 30px 60px -30px rgba(0,0,0,.6);
+  }
+
+  .tabs{display:flex; gap:8px; margin-bottom:20px;}
+  .tab-btn{
+    flex:1;
+    font-family:var(--display);
+    font-weight:700;
+    font-size:16px;
+    color:var(--muted);
+    background:var(--bg-2);
+    border:1px solid #ffffff14;
+    border-radius:12px;
+    padding:12px 16px;
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .tab-btn.active{
+    color:var(--bg);
+    background:var(--green);
+    border-color:var(--green);
+    box-shadow:0 0 22px rgba(57,255,143,.35);
+  }
+  .tab-btn:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{
+    outline:2px solid var(--gold); outline-offset:2px;
+  }
+
+  label{
+    display:block;
+    font-size:12px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin:16px 0 8px;
+  }
+  textarea, input[type="text"]{
+    width:100%;
+    background:#120722;
+    color:var(--cream);
+    border:1px solid #ffffff1c;
+    border-radius:12px;
+    padding:14px;
+    font-family:var(--mono);
+    font-size:14.5px;
+    resize:vertical;
+  }
+  textarea{min-height:120px;}
+  #output{min-height:180px;}
+  input[type="text"]{padding:12px 14px;}
+
+  .row{display:flex; gap:14px; flex-wrap:wrap; align-items:flex-end;}
+  .row > div{flex:1; min-width:180px;}
+
+  .actions{margin-top:20px; display:flex; gap:12px; flex-wrap:wrap;}
+  button.run{
+    font-family:var(--display);
+    font-weight:700;
+    font-size:15px;
+    color:var(--bg);
+    background:var(--gold);
+    border:none;
+    border-radius:12px;
+    padding:13px 22px;
+    cursor:pointer;
+    transition:transform .12s ease, box-shadow .12s ease;
+  }
+  button.run:hover{transform:translateY(-1px); box-shadow:0 10px 22px -10px rgba(255,210,63,.6);}
+  button.ghost{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--muted);
+    background:transparent;
+    border:1px solid #ffffff22;
+    border-radius:12px;
+    padding:12px 18px;
+    cursor:pointer;
+  }
+  button.ghost:hover{color:var(--cream); border-color:#ffffff44;}
+
+  .output-wrap{position:relative; margin-top:8px;}
+  .copy-btn{
+    position:absolute;
+    top:10px;
+    right:10px;
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--muted);
+    background:#ffffff10;
+    border:1px solid #ffffff1c;
+    border-radius:8px;
+    padding:6px 10px;
+    cursor:pointer;
+  }
+  .copy-btn:hover{color:var(--green); border-color:var(--green);}
+
+  .hint{font-size:12.5px; color:var(--muted); margin-top:8px; line-height:1.5;}
+  .hint strong{color:var(--pink);}
+
+  /* ---------- COMO FUNCIONA ---------- */
+  section.how{padding:64px 24px;}
+  h2.section-title{
+    font-family:var(--display);
+    font-weight:700;
+    font-size:clamp(1.5rem, 4vw, 2rem);
+    color:var(--cream);
+    margin-bottom:28px;
+  }
+  .steps{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+  @media (max-width:720px){.steps{grid-template-columns:1fr;}}
+  .step{
+    background:var(--bg-2);
+    border:1px solid #ffffff12;
+    border-radius:14px;
+    padding:20px;
+  }
+  .step .n{
+    font-family:var(--display);
+    font-size:13px;
+    color:var(--bg);
+    background:var(--green);
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:26px; height:26px;
+    border-radius:50%;
+    margin-bottom:12px;
+    font-weight:700;
+  }
+  .step h3{font-family:var(--display); font-size:16.5px; margin:0 0 8px; color:var(--cream);}
+  .step p{font-size:13.5px; color:var(--muted); line-height:1.55; margin:0;}
+
+  footer{
+    text-align:center;
+    padding:32px 24px 60px;
+    color:var(--muted);
+    font-size:12.5px;
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="eyebrow">um sistema de codificação 100% caseiro</div>
+  <h1 class="title">XABLAU<br><span class="accent">ENCODE</span></h1>
+  <p class="tagline">Seu texto, uma senha, e muita zoeira. Embaralha sua mensagem com um algoritmo genuíno &mdash; sem servidor, sem enviar nada pra lugar nenhum.</p>
+</header>
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>🐎</span><span>🐎</span><span>🐎</span><span>🐎</span><span>🐎</span><span>🐎</span>
+    <span>🐎</span><span>🐎</span><span>🐎</span><span>🐎</span><span>🐎</span><span>🐎</span>
+  </div>
+</div>
+
+<main class="wrap">
+  <div class="panel">
+    <div class="tabs">
+      <button class="tab-btn active" id="tabEncode" onclick="setMode('encode')">Codificar</button>
+      <button class="tab-btn" id="tabDecode" onclick="setMode('decode')">Decodificar</button>
+    </div>
+
+    <label for="key">Chave (sua senha do Xablau)</label>
+    <input type="text" id="key" placeholder="XABLAU" value="XABLAU">
+
+    <label for="input" id="inputLabel">Mensagem original</label>
+    <textarea id="input" placeholder="Escreve aí, sócio..."></textarea>
+
+    <div class="actions">
+      <button class="run" id="runBtn" onclick="run()">Codificar mensagem</button>
+      <button class="ghost" onclick="clearAll()">Limpar</button>
+    </div>
+
+    <label id="outputLabel">Resultado</label>
+    <div class="output-wrap">
+      <textarea id="output" readonly placeholder="Seu resultado aparece aqui"></textarea>
+      <button class="copy-btn" onclick="copyOutput()">copiar</button>
+    </div>
+    <p class="hint" id="hint"><strong>Dica:</strong> o resultado é uma sequência de gírias separadas por espaço (ex: "xablau doido meufi..."). A mesma chave usada para codificar precisa ser usada para decodificar.</p>
+  </div>
+</main>
+
+<section class="how wrap">
+  <h2 class="section-title">Como o Xablau Encode funciona</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="n">1</div>
+      <h3>Mistura com a chave</h3>
+      <p>Cada caractere da sua mensagem é combinado byte a byte com a sua chave, repetida quantas vezes for preciso (uma cifra do tipo XOR).</p>
+    </div>
+    <div class="step">
+      <div class="n">2</div>
+      <h3>Vira código</h3>
+      <p>O resultado embaralhado é convertido para Base64, o mesmo tipo de codificação usada para anexar imagens em e-mails.</p>
+    </div>
+    <div class="step">
+      <div class="n">3</div>
+      <h3>Vocabulário Xablau</h3>
+      <p>Cada caractere do Base64 vira uma gíria: "rapaiz", "meufi", "xablau", "chat", "doido" e mais 60 palavras. A ordem delas muda de acordo com a sua chave.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Xablau Encode &mdash; roda inteiro no seu navegador, nada é enviado pra fora. Feito para brincar, não para guardar segredo de verdade. 🐎
+</footer>
+
+<script>
+  // ---------- PRNG determinístico a partir da chave ----------
+  function strToSeed(str){
+    let seed = 0;
+    for(let i=0;i<str.length;i++){
+      seed = (seed * 31 + str.charCodeAt(i)) >>> 0;
+    }
+    return seed || 1;
+  }
+  function mulberry32(seed){
+    return function(){
+      seed |= 0; seed = (seed + 0x6D2B79F5) | 0;
+      let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  const BASE64_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+
+  // Vocabulário do Xablau: 64 palavras/gírias, uma para cada caractere do Base64
+  const WORDS = [
+    "rapaiz","meufi","xablau","chat","doido","mermao","visse","oxente",
+    "vixe","eita","trem","sinistro","daora","mano","breu","suave",
+    "deboa","marmita","gado","cria","bagulho","cabuloso","arretado","sussa",
+    "trampo","role","treta","bolado","avexado","partiu","salve","coe",
+    "egua","bicho","cabra","massa","show","topzera","mizeravi","lek",
+    "mermo","trocado","fita","parada","corre","gringo","patrao","rocha",
+    "zica","sinuca","resenha","zoeira","gambiarra","rango","bora","misera",
+    "sinistrao","caolho","figurinha","bagaco","gastura","cabresto","jegue","arrocha"
+  ];
+  const PAD_WORD = "valeu"; // representa o '=' de preenchimento do Base64
+
+  function shuffledWords(key){
+    const arr = WORDS.slice();
+    const rand = mulberry32(strToSeed(key || 'XABLAU'));
+    for(let i=arr.length-1;i>0;i--){
+      const j = Math.floor(rand()*(i+1));
+      [arr[i],arr[j]] = [arr[j],arr[i]];
+    }
+    return arr;
+  }
+
+  function buildMaps(key){
+    const original = BASE64_ALPHABET.split('');
+    const shuffled = shuffledWords(key);
+    const encodeMap = {};
+    const decodeMap = {};
+    for(let i=0;i<original.length;i++){
+      encodeMap[original[i]] = shuffled[i];
+      decodeMap[shuffled[i]] = original[i];
+    }
+    encodeMap['='] = PAD_WORD;
+    decodeMap[PAD_WORD] = '=';
+    return { encodeMap, decodeMap };
+  }
+
+  function wordsEncode(str, map){
+    const out = [];
+    for(const ch of str){
+      out.push(map[ch] !== undefined ? map[ch] : ch);
+    }
+    return out.join(' ');
+  }
+
+  function wordsDecode(str, map){
+    const tokens = str.trim().split(/\s+/).filter(Boolean);
+    let out = '';
+    for(const tok of tokens){
+      if(map[tok] === undefined) throw new Error('palavra desconhecida: ' + tok);
+      out += map[tok];
+    }
+    return out;
+  }
+
+  function bytesToBase64(bytes){
+    let binary = '';
+    bytes.forEach(b => binary += String.fromCharCode(b));
+    return btoa(binary);
+  }
+  function base64ToBytes(b64){
+    const binary = atob(b64);
+    const bytes = new Uint8Array(binary.length);
+    for(let i=0;i<binary.length;i++) bytes[i] = binary.charCodeAt(i);
+    return bytes;
+  }
+
+  function xorBytes(bytes, keyBytes){
+    const out = new Uint8Array(bytes.length);
+    for(let i=0;i<bytes.length;i++){
+      out[i] = bytes[i] ^ keyBytes[i % keyBytes.length];
+    }
+    return out;
+  }
+
+  function xablauEncode(text, key){
+    const enc = new TextEncoder();
+    const dataBytes = enc.encode(text);
+    const keyBytes = enc.encode(key || 'XABLAU');
+    const xored = xorBytes(dataBytes, keyBytes);
+    const b64 = bytesToBase64(xored);
+    const { encodeMap } = buildMaps(key);
+    return wordsEncode(b64, encodeMap);
+  }
+
+  function xablauDecode(cipher, key){
+    const { decodeMap } = buildMaps(key);
+    const b64 = wordsDecode(cipher, decodeMap);
+    const bytes = base64ToBytes(b64);
+    const enc = new TextEncoder();
+    const keyBytes = enc.encode(key || 'XABLAU');
+    const original = xorBytes(bytes, keyBytes);
+    return new TextDecoder().decode(original);
+  }
+
+  // ---------- UI ----------
+  let mode = 'encode';
+
+  function setMode(m){
+    mode = m;
+    document.getElementById('tabEncode').classList.toggle('active', m==='encode');
+    document.getElementById('tabDecode').classList.toggle('active', m==='decode');
+    document.getElementById('inputLabel').textContent = m==='encode' ? 'Mensagem original' : 'Mensagem codificada';
+    document.getElementById('outputLabel').textContent = m==='encode' ? 'Resultado codificado' : 'Mensagem decodificada';
+    document.getElementById('runBtn').textContent = m==='encode' ? 'Codificar mensagem' : 'Decodificar mensagem';
+    document.getElementById('input').placeholder = m==='encode' ? 'Escreve aí, sócio...' : 'Cola aqui o código Xablau...';
+    document.getElementById('output').value = '';
+  }
+
+  function run(){
+    const key = document.getElementById('key').value || 'XABLAU';
+    const input = document.getElementById('input').value;
+    const out = document.getElementById('output');
+    const hint = document.getElementById('hint');
+    if(!input){ out.value=''; return; }
+    try{
+      out.value = mode === 'encode' ? xablauEncode(input, key) : xablauDecode(input, key);
+      hint.innerHTML = '<strong>Dica:</strong> o resultado é uma sequência de gírias separadas por espaço (ex: "xablau doido meufi..."). A mesma chave usada para codificar precisa ser usada para decodificar.';
+    }catch(e){
+      out.value = '';
+      hint.innerHTML = '<strong>Ops:</strong> não consegui decodificar isso com essa chave. Confere se as palavras e a chave estão certas &mdash; toda palavra do texto codificado precisa ser do vocabulário Xablau.';
+    }
+  }
+
+  function clearAll(){
+    document.getElementById('input').value = '';
+    document.getElementById('output').value = '';
+  }
+
+  function copyOutput(){
+    const out = document.getElementById('output');
+    if(!out.value) return;
+    out.select();
+    document.execCommand('copy');
+    const btn = document.querySelector('.copy-btn');
+    const original = btn.textContent;
+    btn.textContent = 'copiado!';
+    setTimeout(()=> btn.textContent = original, 1200);
+  }
+</script>
+
+</body>
+</html>
