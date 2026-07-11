@@ -1,7 +1,7 @@
 const API = "https://pokeapi.co/api/v2/"
-const lista = document.querySelector("#listaPoke")
+const listaPokemon = document.querySelector("#listaPokemon")
+const inputPokemon = document.querySelector("#pokemonId")
 const div = document.querySelector("#pokemon")
-const imgPokemon = div?.querySelector("img")
 
 async function requisicaoPoke(valor) {
     const respostaAPI = await fetch(API + valor)
@@ -11,59 +11,31 @@ async function requisicaoPoke(valor) {
     return respostaAPI.json()
 }
 
-function urlDaImagem(dados) {
-    const sprites = dados?.sprites
-    if (!sprites) return ""
-
-    return (
-        sprites.back_default ||
-        sprites.front_default ||
-        sprites.other?.["official-artwork"]?.front_default ||
-        ""
-    )
-}
-
 async function listaDePokemons() {
     const pokemons = await requisicaoPoke("pokemon?limit=100000&offset=0")
     const options = pokemons.results.reduce((options, pkm) => {
         return options + `<option value="${pkm.name}">${pkm.name}</option>`
-    }, '<option value="0">Selecione um pokemon</option>')
+    }, '')
 
-    lista.innerHTML = options
+    listaPokemon.innerHTML = options
 }
+listaDePokemons()
 
-listaDePokemons().catch((err) => {
-    console.error(err)
-    lista.innerHTML = '<option value="0">Erro ao carregar lista</option>'
-})
-
-lista.addEventListener("change", async () => {
-    const pokemonEscolhido = lista.value
+inputPokemon.addEventListener("change", async () => {
+    console.log("xablau")
+    const pokemonEscolhido = inputPokemon.value
     if (!pokemonEscolhido || pokemonEscolhido === "0") return
 
     try {
         const dadosDoPokemon = await requisicaoPoke(`pokemon/${pokemonEscolhido}`)
-        const url = urlDaImagem(dadosDoPokemon)
+        console.log(dadosDoPokemon)
 
-        if (!imgPokemon) return
-
-        if (!url) {
-            imgPokemon.removeAttribute("src")
-            imgPokemon.alt = `Sem imagem para ${dadosDoPokemon.name}`
-            return
-        }
-
-        imgPokemon.onerror = () => {
-            imgPokemon.removeAttribute("src")
-            imgPokemon.alt = `Imagem indisponível para ${dadosDoPokemon.name}`
-        }
-        imgPokemon.src = url
-        imgPokemon.alt = `Imagem do ${dadosDoPokemon.name}`
+        div.innerHTML = `
+            <h1>${dadosDoPokemon.name}</h1>
+            <img src="${dadosDoPokemon.sprites.front_default}" alt="Imagem do ${dadosDoPokemon.name}">
+            <h3>Tipos</h3>
+        `
     } catch (err) {
-        console.error(err)
-        if (imgPokemon) {
-            imgPokemon.removeAttribute("src")
-            imgPokemon.alt = "Não foi possível carregar este Pokémon"
-        }
+
     }
 })
